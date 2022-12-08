@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.data.models.Model
 import com.example.myapplication.ui.ViewModel
@@ -37,6 +39,7 @@ class WeatherFr : Fragment() {
         val temp: TextView =view.findViewById(R.id.textView)
         val date: TextView =   view.findViewById(R.id.textView2)
         val city: TextView =   view.findViewById(R.id.textView3)
+        val image:ImageView=view.findViewById(R.id.imageView2)
         println(weatherfr)
         println("YEEEEEEEEEEEEEEE")
         viewModel.weather.observe(viewLifecycleOwner) {
@@ -45,6 +48,10 @@ class WeatherFr : Fragment() {
             temp.text=(k).toString();
             date.text=weatherfr.weather[0].description
             city.text=weatherfr.name
+            Glide
+                .with(image)
+                .load("http://openweathermap.org/img/w/${weatherfr.weather[0].icon}.png")
+                .into(image)
         }
         //
 

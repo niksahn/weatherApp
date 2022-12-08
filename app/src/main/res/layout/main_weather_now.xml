@@ -3,37 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="false"
+    android:animationCache="false"
+    android:background="#77000000"
     tools:context=".Fragm.WeatherFr">
 
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
             tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="760dp"
+            android:layout_height="134dp"
             android:layout_marginStart="150dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="90dp"
             android:text="TextView"
-            android:textSize="48sp" />
+
+            android:textSize="60sp" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Date" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="45dp"
+            android:text="Date"
+            android:textSize="34sp" />
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="City" />
+            android:layout_gravity="center_horizontal"
+            android:text="City"
+            android:textSize="34sp" />
 
 
 </FrameLayout>
