@@ -4,22 +4,26 @@ import com.example.myapplication.Constants
 import com.example.myapplication.data.api.ModelApi
 import com.example.myapplication.data.api.RickApi
 import com.example.myapplication.domain.repository.ApiRepository
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ApiRepositoryImpl(private val rickApi: RickApi) : ApiRepository {
     override suspend fun getApiRezults():  ModelApi? {
-        var q:ModelApi?=null
-    rickApi.getData("penza",Constants.token).enqueue(
-    object : Callback<ModelApi> {
-        override fun onResponse(call: Call<ModelApi>, response: Response<ModelApi>){
-            q= response.body()
-        }
-        override fun onFailure(call: Call<ModelApi>, t: Throwable) {
-        }
+       var q:ModelApi?=null
+        val jobList = mutableListOf<Deferred<ModelApi>>()
+        withContext(Dispatchers.IO) {
+            jobList.add(async {rickApi.getData("Penza",Constants.token).execute().body()!!})
+            q=   jobList.mapNotNull {
+                   it.await()
+                }[0]
 
-    })
+
+        }
         return q
 
 }

@@ -15,9 +15,8 @@ class ViewModel(private val interactor: Interactor)  : ViewModel(){
     init {
         viewModelScope.launch(Dispatchers.IO) {
             supervisorScope {
-                weather.postValue(interactor.setApiRezults())
-            }
-    }
-    }
+                weather.postValue(interactor.setApiRezults())}
 
-}
+    }
+    }}
+

@@ -6,8 +6,9 @@ import com.example.myapplication.domain.repository.ApiRepository
 class InteractorImpl(
     private val ApiRepository: ApiRepository,
 ) : Interactor {
-    override suspend fun setApiRezults(): Model? {
+     override suspend fun setApiRezults(): Model? {
         val joblist = ApiRepository.getApiRezults()
+        println(joblist?.toModel())
         return joblist?.toModel()
     }
 }
