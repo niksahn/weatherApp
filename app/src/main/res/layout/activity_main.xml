@@ -6,9 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <fragment
-        android:id="@+id/weather"
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
         android:name="com.example.myapplication.Fragm.WeatherFr"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="379dp"
+        android:layout_height="223dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="112dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/main_weather_now" />
+
+    <FrameLayout
+        android:layout_width="409dp"
+        android:layout_height="114dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="center"
+            android:text='@string/weather'
+            android:textSize="45sp" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

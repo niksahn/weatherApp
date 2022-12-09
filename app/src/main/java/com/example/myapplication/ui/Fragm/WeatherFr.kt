@@ -44,13 +44,13 @@ class WeatherFr : Fragment() {
         println("YEEEEEEEEEEEEEEE")
         viewModel.weather.observe(viewLifecycleOwner) {
             weatherfr=it;
-            val k= round( weatherfr.main?.temp?.minus(273.15)!!);
+            val k= round( weatherfr.list[0].main?.temp?.minus(273.15)!!);
             temp.text=(k).toString();
-            date.text=weatherfr.weather[0].description
-            city.text=weatherfr.name
+            date.text=weatherfr.list[0].weather[0].description
+            city.text=weatherfr.city?.name
             Glide
                 .with(image)
-                .load("http://openweathermap.org/img/w/${weatherfr.weather[0].icon}.png")
+                .load("http://openweathermap.org/img/w/${weatherfr.list[0].weather[0].icon}.png")
                 .into(image)
         }
         //

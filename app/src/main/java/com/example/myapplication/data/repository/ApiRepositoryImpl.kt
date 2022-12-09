@@ -17,7 +17,7 @@ class ApiRepositoryImpl(private val rickApi: RickApi) : ApiRepository {
        var q:ModelApi?=null
         val jobList = mutableListOf<Deferred<ModelApi>>()
         withContext(Dispatchers.IO) {
-            jobList.add(async {rickApi.getData("Penza",Constants.token).execute().body()!!})
+            jobList.add(async {rickApi.getData("Penza",Constants.token,"ru").execute().body()!!})
             q=   jobList.mapNotNull {
                    it.await()
                 }[0]

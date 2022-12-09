@@ -8,10 +8,11 @@ import retrofit2.http.*
 
 
 interface RickApi {
-    @GET("data/2.5/weather")
+    @GET("data/2.5/forecast")
     fun getData(
         @Query("q") q: String?,
         @Query("appid") appid: String,
+        @Query("lang") lang: String,
     ): Call<ModelApi>
 }
 //     api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=0c223951facc56292b4f3f96b2a12518
