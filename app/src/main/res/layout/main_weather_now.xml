@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             tools:ignore="ImageContrastCheck"
             tools:src="@tools:sample/avatars" />
