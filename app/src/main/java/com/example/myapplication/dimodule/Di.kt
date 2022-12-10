@@ -1,6 +1,7 @@
 package com.example.myapplication.dimodule
 import org.koin.dsl.module
 import com.example.myapplication.Constants
+import com.example.myapplication.data.api.ApiCurrent
 import com.example.myapplication.data.api.RickApi
 import com.example.myapplication.data.api.repository.ApiRepositoryImpl
 import com.example.myapplication.domain.interactor.Interactor
@@ -20,6 +21,14 @@ val dataModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         retrofit.create(RickApi::class.java)
+
+    }
+    single {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constants.baseurl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        retrofit.create(ApiCurrent::class.java)
 
     }
 

@@ -1,33 +1,80 @@
 package com.example.myapplication.data.api.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.Constants
-import com.example.myapplication.data.api.ModelApi
-import com.example.myapplication.data.api.RickApi
+import com.example.myapplication.data.api.ApiCurrent
+
+import com.example.myapplication.data.models.ModelApiCurrent
 import com.example.myapplication.domain.repository.ApiRepository
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class ApiRepositoryImpl(private val rickApi: RickApi) : ApiRepository {
-    override suspend fun getApiRezults():  ModelApi? {
-       var q:ModelApi?=null
+
+class ApiRepositoryImpl(private val apiCurrent: ApiCurrent) : ApiRepository {
+    override suspend fun getApiRezults(): ModelApiCurrent? {
+        var q:ModelApiCurrent?=null
+        val jobList = mutableListOf<Deferred<ModelApiCurrent>>()
+        withContext(Dispatchers.IO) {
+            jobList.add(async {apiCurrent.getData("Penza",Constants.token,"ru").execute().body()!!})
+            q=jobList.mapNotNull {
+                it.await()
+            }[0]
+
+
+        }
+        return q}
+
+
+
+        /*var q: ModelApiCurrent? = null
+        apiCurrent.getData("penza", Constants.token, "ru").enqueue(
+            object : Callback<ModelApiCurrent> {
+                override fun onResponse(
+                    call: Call<ModelApiCurrent>,
+                    response: Response<ModelApiCurrent>
+                ) {
+                    q= response.body()
+                    println("Wow")
+                    println(q)
+
+
+                }
+
+                override fun onFailure(call: Call<ModelApiCurrent>, t: Throwable) {
+                    println("no")
+                }
+
+
+            })
+        println("Woow")
+        println(q)
+        return q
+    }*/
+}
+
+/*
+ var q:ModelApi?=null
         val jobList = mutableListOf<Deferred<ModelApi>>()
         withContext(Dispatchers.IO) {
             jobList.add(async {rickApi.getData("Penza",Constants.token,"ru").execute().body()!!})
-            q=   jobList.mapNotNull {
+            q=jobList.mapNotNull {
                    it.await()
                 }[0]
 
 
         }
-        return q
 
-}
-}
+
+ */
+
+
+
+
+
+
+
 //  api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=0c223951facc56292b4f3f96b2a12518
 /*
 override suspend fun getApiRezults(): List<Model> {

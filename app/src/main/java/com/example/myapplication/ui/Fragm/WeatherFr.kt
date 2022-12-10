@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.data.models.Model
+import com.example.myapplication.data.models.ModelApiCurrent
 import com.example.myapplication.ui.ViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.round
@@ -18,7 +19,7 @@ import kotlin.math.round
 class WeatherFr : Fragment() {
 
     companion object {
-        var  weatherfr: Model=Model();
+        var  weatherfr: ModelApiCurrent?=ModelApiCurrent();
         fun newInstance() = WeatherFr()
     }
 
@@ -44,13 +45,13 @@ class WeatherFr : Fragment() {
         println("YEEEEEEEEEEEEEEE")
         viewModel.weather.observe(viewLifecycleOwner) {
             weatherfr=it;
-            val k= round( weatherfr.list[0].main?.temp?.minus(273.15)!!);
+            val k= weatherfr?.main?.temp?.minus(273.15)?.let { it1 -> round(it1) };
             temp.text=(k).toString();
-            date.text=weatherfr.list[0].weather[0].description
-            city.text=weatherfr.city?.name
+            date.text= weatherfr?.weather?.get(0)?.description
+            city.text=weatherfr?.name
             Glide
                 .with(image)
-                .load("http://openweathermap.org/img/w/${weatherfr.list[0].weather[0].icon}.png")
+                .load("http://openweathermap.org/img/w/${weatherfr?.weather?.get(0)?.icon}.png")
                 .into(image)
         }
         //
