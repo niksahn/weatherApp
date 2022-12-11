@@ -48,8 +48,8 @@ object PlaceholderContent {
 
 }
 data class PlaceholderItemContent(
-    val minTemp:Double?=null,
-    val maxTemp:Double?=null,
+    val minTemp:Int?=null,
+    val maxTemp:Int?=null,
     var icon: String? = null,
     var humidity: Int? = null,
     var date: String? = null,

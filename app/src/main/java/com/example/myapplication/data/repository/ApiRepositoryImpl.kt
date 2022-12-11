@@ -22,7 +22,7 @@ class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForeca
         val jobList = mutableListOf<Deferred<ModelApiCurrent>>()
         withContext(Dispatchers.IO) {
             jobList.add(async {
-                apiCurrent.getData("Penza", Constants.token, "ru").execute().body()!!
+                apiCurrent.getData("Пенза", Constants.token, "ru").execute().body()!!
             })
             q = jobList.mapNotNull {
                 it.await()
@@ -36,7 +36,7 @@ class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForeca
         var q=listOf<ModelApi>()
         val jobList = mutableListOf<Deferred<ModelApi>>()
         withContext(Dispatchers.IO) {
-            jobList.add(async {apiForecast.getData("Penza",Constants.token,"ru").execute().body()!!})
+            jobList.add(async {apiForecast.getData("Пенза",Constants.token,"ru").execute().body()!!})
             q=jobList.mapNotNull {
                 it.await()
             }

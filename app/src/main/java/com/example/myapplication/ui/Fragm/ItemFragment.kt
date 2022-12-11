@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.Fragm
 
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +12,16 @@ import com.example.myapplication.R
 import com.example.myapplication.data.models.Model
 import com.example.myapplication.data.models.placeholder.PlaceholderContent
 import com.example.myapplication.data.models.placeholder.PlaceholderItemContent
+import com.example.myapplication.ui.Fragm.recycle.MyItemRecyclerViewAdapter
 import com.example.myapplication.ui.ViewModel
-import com.example.myapplication.ui.recycle.MyItemRecyclerViewAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Double.max
 import java.lang.Double.min
+import java.text.DateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.math.round
 
 /**
  * A fragment representing a list of Items.
@@ -42,10 +45,13 @@ class ItemFragment : Fragment() {
         val view = inflater.inflate(R.layout.elem_weather_forecast, container, false)
 
 
+
+
+        return view
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.forecast.observe(viewLifecycleOwner) {
-            /*val calendar: Calendar = Calendar.getInstance()
-            val formatter = SimpleDateFormat("yyyy-MM-dd")
-            val formattedDate: String = formatter.format(calendar.getTime())*/
             putingInPlaceHolder(it)
             if (view is RecyclerView) {
                 with(view) {
@@ -55,11 +61,15 @@ class ItemFragment : Fragment() {
                     }
                     adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
                 }
-            }
+            }}
+            /*val calendar: Calendar = Calendar.getInstance()
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val formattedDate: String = formatter.format(calendar.getTime())*/
 
-        }
 
-        return view
+
+
+
     }
 
     companion object {
@@ -101,17 +111,32 @@ fun putingInPlaceHolder(it: List<Model>){
         var minTemp=10000.0
         var maxTemp=0.0
         var avHumidity=0
-        var icon=""
-        for (ii in i until i+8 step 8)
+        var icon=it[0].list[i]?.weather?.get(0)?.icon!!
+        for (ii in i until i+7  )
         {
-            minTemp=min(minTemp,it[0].list[i].main?.temp?:10000.0)
-            maxTemp=max(maxTemp,it[0].list[i].main?.temp?:0.0)
-            if(it[0].list[i]?.weather?.get(0)?.icon!! >icon){
-                icon=it[0].list[i]?.weather?.get(0)?.icon!!
+            minTemp=min(minTemp,it[0].list[ii].main?.temp!!)
+            maxTemp=max(maxTemp,it[0].list[ii].main?.temp!!)
+
+            if(it[0].list[i]?.weather?.get(0)?.icon!!.substring(0,1)>icon.substring(0,1)){
+                icon=it[0].list[ii]?.weather?.get(0)?.icon!!.substring(0,1)+"d"
             }
-            avHumidity+=it[0].list[i]?.main?.humidity?:0
+            avHumidity+=it[0].list[ii]?.main?.humidity?:0
+            println(i)
+            println(" min: "+minTemp)
+            println(" cur: "+it[0].list[ii].main?.temp!!)
+            println(" max: "+maxTemp)
+            println(it[0].list[ii]?.weather?.get(0)?.icon!!)
+
+
+
         }
-        PlaceholderContent.addItem(i, PlaceholderItemContent(minTemp,maxTemp,icon,(avHumidity/8),it[0].list[i]?.dtTxt))
+        val c = Calendar.getInstance()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:s")
+
+        val date = LocalDate.parse(it[0].list[i]?.dtTxt, formatter).dayOfWeek
+
+
+        PlaceholderContent.addItem(i, PlaceholderItemContent(minTemp.minus(273.15) ?.let { round(it) }?.toInt(),maxTemp.minus(273.15) ?.let { round(it) }?.toInt(),icon,(avHumidity/8),date.toString()))
 
     }
 }
