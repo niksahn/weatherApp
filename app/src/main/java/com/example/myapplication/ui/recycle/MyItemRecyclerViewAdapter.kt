@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.myapplication.data.models.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.myapplication.databinding.FragmentItemBinding
@@ -33,6 +34,8 @@ class MyItemRecyclerViewAdapter(
         val item = values[position]
         holder.idView.text = item.id
         holder.contentView.text = item.content
+
+
     }
 
     override fun getItemCount(): Int = values.size
