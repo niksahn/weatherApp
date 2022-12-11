@@ -1,5 +1,6 @@
 package com.example.myapplication.data.models.placeholder
 
+import com.example.myapplication.data.models.Model
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -21,37 +22,37 @@ object PlaceholderContent {
      */
     val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
 
-    private val COUNT = 25
+
 
     init {
         // Add some sample items.
-        for (i in 1..COUNT) {
+       /* for (i in 1..COUNT) {
             addItem(createPlaceholderItem(i))
-        }
+        }*/
     }
 
-    private fun addItem(item: PlaceholderItem) {
-        ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+
+
+     fun addItem(position: Int,vals: PlaceholderItemContent)  {
+         ITEMS.add(PlaceholderItem(position.toString(),vals  ))
+         ITEM_MAP.put(PlaceholderItem(position.toString(),vals  ).id, PlaceholderItem(position.toString(),vals  ))
+
     }
 
-    private fun createPlaceholderItem(position: Int): PlaceholderItem {
-        return PlaceholderItem(position.toString(), "Item " + position, makeDetails(position))
-    }
 
-    private fun makeDetails(position: Int): String {
-        val builder = StringBuilder()
-        builder.append("Details about Item: ").append(position)
-        for (i in 0..position - 1) {
-            builder.append("\nMore details information here.")
-        }
-        return builder.toString()
-    }
 
     /**
      * A placeholder item representing a piece of content.
      */
-    data class PlaceholderItem(val id: String, val content: String, val details: String) {
-        override fun toString(): String = content
-    }
+    data class PlaceholderItem(val id: String, val content: PlaceholderItemContent)
+
 }
+data class PlaceholderItemContent(
+    val minTemp:Double?=null,
+    val maxTemp:Double?=null,
+    var icon: String? = null,
+    var humidity: Int? = null,
+    var date: String? = null,
+
+
+    )

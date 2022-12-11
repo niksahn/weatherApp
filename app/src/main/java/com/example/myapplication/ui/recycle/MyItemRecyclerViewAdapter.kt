@@ -32,9 +32,9 @@ class MyItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.content.date
 
+        holder.contentView.text = item.content.maxTemp.toString()
 
     }
 

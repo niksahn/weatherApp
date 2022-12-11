@@ -3,6 +3,10 @@ package com.example.myapplication.data.api.repository
 import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.Constants
 import com.example.myapplication.data.api.ApiCurrent
+import com.example.myapplication.data.api.ApiForecast
+import com.example.myapplication.data.api.ModelApi
+
+import com.example.myapplication.data.models.Model
 
 import com.example.myapplication.data.models.ModelApiCurrent
 import com.example.myapplication.domain.repository.ApiRepository
@@ -12,19 +16,37 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 
-class ApiRepositoryImpl(private val apiCurrent: ApiCurrent) : ApiRepository {
+class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForecast: ApiForecast) : ApiRepository {
     override suspend fun getApiRezults(): ModelApiCurrent? {
-        var q:ModelApiCurrent?=null
+        var q: ModelApiCurrent? = null
         val jobList = mutableListOf<Deferred<ModelApiCurrent>>()
         withContext(Dispatchers.IO) {
-            jobList.add(async {apiCurrent.getData("Penza",Constants.token,"ru").execute().body()!!})
-            q=jobList.mapNotNull {
+            jobList.add(async {
+                apiCurrent.getData("Penza", Constants.token, "ru").execute().body()!!
+            })
+            q = jobList.mapNotNull {
                 it.await()
             }[0]
 
 
         }
-        return q}
+        return q
+    }
+    override suspend fun getApiForecastRezults(): List<ModelApi> {
+        var q=listOf<ModelApi>()
+        val jobList = mutableListOf<Deferred<ModelApi>>()
+        withContext(Dispatchers.IO) {
+            jobList.add(async {apiForecast.getData("Penza",Constants.token,"ru").execute().body()!!})
+            q=jobList.mapNotNull {
+                it.await()
+            }
+
+        }
+        return q
+    }
+}
+//:List<ModelApi?>=list
+
 
 
 
@@ -52,7 +74,7 @@ class ApiRepositoryImpl(private val apiCurrent: ApiCurrent) : ApiRepository {
         println(q)
         return q
     }*/
-}
+
 
 /*
  var q:ModelApi?=null

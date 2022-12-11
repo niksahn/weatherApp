@@ -13,11 +13,12 @@ import java.util.*
 
 class ViewModel(private val interactor: Interactor)  : ViewModel(){
     var weather: MutableLiveData<ModelApiCurrent> = MutableLiveData()
+    var forecast: MutableLiveData<List<Model>> = MutableLiveData()
     init {
         viewModelScope.launch(Dispatchers.IO) {
             supervisorScope {
                 weather.postValue(interactor.setApiRezults())
-
+                forecast.postValue(interactor.setApiForecastRezults())
             }
 
     }

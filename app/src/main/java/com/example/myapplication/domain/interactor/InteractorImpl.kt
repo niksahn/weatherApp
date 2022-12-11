@@ -6,11 +6,19 @@ import com.example.myapplication.domain.repository.ApiRepository
 
 class InteractorImpl(
     private val ApiRepository: ApiRepository,
+
 ) : Interactor {
      override suspend fun setApiRezults(): ModelApiCurrent? {
         val joblist = ApiRepository.getApiRezults()
-         println("job")
-        println(joblist)
+
         return joblist
     }
+
+    override suspend fun setApiForecastRezults(): List<Model>? {
+        val joblist = ApiRepository.getApiForecastRezults()
+
+        return joblist?.map {it.toModel()  }
+
+    }
+
 }
