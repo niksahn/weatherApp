@@ -32,9 +32,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def koin_version = "3.2.2"
 
     implementation "io.insert-koin:koin-android:$koin_version"

@@ -40,15 +40,21 @@ class WeatherFr : Fragment() {
         val temp: TextView =view.findViewById(R.id.textView)
         val date: TextView =   view.findViewById(R.id.textView2)
         val city: TextView =   view.findViewById(R.id.textView3)
+        val wind: TextView =   view.findViewById(R.id.windval)
+        val pressure: TextView =   view.findViewById(R.id.pressureval)
+        val humidity: TextView =   view.findViewById(R.id.humidityval)
         val image:ImageView=view.findViewById(R.id.imageView2)
         println(weatherfr)
         println("YEEEEEEEEEEEEEEE")
         viewModel.weather.observe(viewLifecycleOwner) {
             weatherfr=it;
-            val k= weatherfr?.main?.temp?.minus(273.15)?.let { it1 -> round(it1) };
+            val k= weatherfr?.main?.temp?.minus(273.15)?.let { it1 -> round(it1).toInt() };
             temp.text=(k).toString();
             date.text= weatherfr?.weather?.get(0)?.description
             city.text=weatherfr?.name
+            pressure.text= (weatherfr?.main?.pressure?.times(0.750063755419211)?.let { it1 -> round(it1).toInt() }).toString()+" мм р.ст."
+            humidity.text=weatherfr?.main?.humidity.toString()+ "%"
+            wind.text=weatherfr?.wind?.speed.toString()+" м/с"
             Glide
                 .with(image)
                 .load("http://openweathermap.org/img/w/${weatherfr?.weather?.get(0)?.icon}.png")

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="weather">Погода</string>
+    <string name="wind">Скорость ветра</string>
+    <string name="humidity"> Влажность</string>
+    <string name="pressure"> Давление</string>
 </resources>

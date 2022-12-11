@@ -1,52 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:animateLayoutChanges="false"
-    android:animationCache="false"
-    android:background="@android:drawable/spinner_background"
-
-    tools:context=".Fragm.WeatherFr">
-
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            tools:ignore="ImageContrastCheck"
-            tools:src="@tools:sample/avatars" />
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/humidityval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="50dp"
-            android:text="10"
-
-            android:textSize="60sp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginStart="192dp"
+            android:layout_marginTop="60dp"
+            android:text="0 %"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/pressureval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="139dp"
-             android:text="descr"
-            android:textSize="34sp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginStart="192dp"
+            android:layout_marginTop="100dp"
+            android:text="0 мм р.т."
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="false"
+            android:animationCache="false"
+
+            android:background="@android:drawable/spinner_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".Fragm.WeatherFr">
+
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    tools:ignore="ImageContrastCheck"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="150dp"
+                    android:layout_marginTop="50dp"
+                    android:text="10"
+
+                    android:textSize="60sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="139dp"
+                    android:text="descr"
+                    android:textSize="34sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="city"
+                    android:textSize="34sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+
+        </FrameLayout>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/wind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="city"
-            android:textSize="34sp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginTop="20dp"
+            android:text='@string/wind'
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
+        <TextView
+            android:id="@+id/humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text='@string/humidity'
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text='@string/pressure'
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+        <TextView
+            android:id="@+id/windval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="192dp"
+            android:layout_marginTop="20dp"
+            android:text="0 м/с"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

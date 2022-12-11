@@ -10,10 +10,10 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="com.example.myapplication.Fragm.WeatherFr"
-        android:layout_width="379dp"
-        android:layout_height="223dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="338dp"
         android:layout_marginTop="112dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/main_weather_now" />
@@ -24,13 +24,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView4"
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:minHeight="?attr/actionBarSize">
 
-            android:gravity="center"
-            android:text='@string/weather'
-            android:textSize="45sp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:gravity="clip_horizontal|center|center_horizontal"
+                android:text='@string/weather'
+                android:textSize="45sp" />
+        </androidx.appcompat.widget.Toolbar>
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="279dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
