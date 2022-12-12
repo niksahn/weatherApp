@@ -51,23 +51,19 @@ class ItemFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val  adapterr = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+        if (view is RecyclerView) {
+            with(view) {
+                layoutManager = when {
+                    columnCount <= 1 -> LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
+                    else -> GridLayoutManager(context, columnCount)
+                }
+                adapter =adapterr
+            }
+        }
         viewModel.forecast.observe(viewLifecycleOwner) {
             putingInPlaceHolder(it)
-            if (view is RecyclerView) {
-                with(view) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
-                        else -> GridLayoutManager(context, columnCount)
-                    }
-                    adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
-                }
-            }}
-            /*val calendar: Calendar = Calendar.getInstance()
-            val formatter = SimpleDateFormat("yyyy-MM-dd")
-            val formattedDate: String = formatter.format(calendar.getTime())*/
-
-
-
+            adapterr.notifyDataSetChanged()}
 
 
     }
@@ -92,9 +88,10 @@ class ItemFragment : Fragment() {
 
 
 fun putingInPlaceHolder(it: List<Model>){
+    PlaceholderContent.clear()
     var begin=1
     val begindate=it[0].list[0]?.dtTxt
-    for( i in 1 until it[0].list.size)
+    for( i in 1 until it[0].list.size-1)
     {
 
         if(it[0].list[i]?.dtTxt?.substring(0,10)!=begindate?.substring(0,10))
@@ -107,12 +104,13 @@ fun putingInPlaceHolder(it: List<Model>){
 
 
     }
-    for( i in begin until (it[0].list.size) step 8){
+    for( i in begin until (it[0].list.size-1) step 8){
+
         var minTemp=10000.0
         var maxTemp=0.0
         var avHumidity=0
         var icon=it[0].list[i]?.weather?.get(0)?.icon!!
-        for (ii in i until i+7  )
+        for (ii in i until min(i+7.0, (it[0].list.size-1).toDouble()).toInt())
         {
             minTemp=min(minTemp,it[0].list[ii].main?.temp!!)
             maxTemp=max(maxTemp,it[0].list[ii].main?.temp!!)
@@ -121,20 +119,13 @@ fun putingInPlaceHolder(it: List<Model>){
                 icon=it[0].list[ii]?.weather?.get(0)?.icon!!.substring(0,1)+"d"
             }
             avHumidity+=it[0].list[ii]?.main?.humidity?:0
-            println(i)
-            println(" min: "+minTemp)
-            println(" cur: "+it[0].list[ii].main?.temp!!)
-            println(" max: "+maxTemp)
-            println(it[0].list[ii]?.weather?.get(0)?.icon!!)
 
 
 
         }
         val c = Calendar.getInstance()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:s")
-
         val date = LocalDate.parse(it[0].list[i]?.dtTxt, formatter).dayOfWeek
-
 
         PlaceholderContent.addItem(i, PlaceholderItemContent(minTemp.minus(273.15) ?.let { round(it) }?.toInt(),maxTemp.minus(273.15) ?.let { round(it) }?.toInt(),icon,(avHumidity/8),date.toString()))
 

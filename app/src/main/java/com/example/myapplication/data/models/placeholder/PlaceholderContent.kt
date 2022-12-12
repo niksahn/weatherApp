@@ -38,7 +38,11 @@ object PlaceholderContent {
          ITEM_MAP.put(PlaceholderItem(position.toString(),vals  ).id, PlaceholderItem(position.toString(),vals  ))
 
     }
+    fun clear()  {
+        ITEMS.clear()
+        ITEM_MAP.clear()
 
+    }
 
 
     /**

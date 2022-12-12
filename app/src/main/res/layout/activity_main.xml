@@ -8,10 +8,12 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="99dp"
+        android:layout_width="410dp"
+        android:layout_height="131dp"
+        android:background="@drawable/d02"
         android:minHeight="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/scrollView2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,13 +28,14 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
-        android:layout_width="0dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="415dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintHorizontal_bias=" 0"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +47,7 @@
                 android:id="@+id/fragmentContainerView"
                 android:name="com.example.myapplication.Fragm.WeatherFr"
                 android:layout_width="match_parent"
-                android:layout_height="338dp"
+                android:layout_height="wrap_content"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +57,11 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView3"
                 android:name="com.example.myapplication.ui.Fragm.ItemFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="289dp"
+                tools:layout="@layout/elem_weather_forecast"
                 tools:layout_editor_absoluteX="226dp"
-                tools:layout_editor_absoluteY="579dp"
-                tools:layout="@layout/elem_weather_forecast" />
-
+                tools:layout_editor_absoluteY="579dp" />
 
 
         </LinearLayout>
