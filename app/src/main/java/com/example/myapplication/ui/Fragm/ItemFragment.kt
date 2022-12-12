@@ -51,20 +51,26 @@ class ItemFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.forecast.observe(viewLifecycleOwner) {
-            putingInPlaceHolder(it)
+            var  adapterr = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
             if (view is RecyclerView) {
                 with(view) {
                     layoutManager = when {
                         columnCount <= 1 -> LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
                         else -> GridLayoutManager(context, columnCount)
                     }
-                    adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                    adapter = adapterr
+
                 }
-            }}
-            /*val calendar: Calendar = Calendar.getInstance()
-            val formatter = SimpleDateFormat("yyyy-MM-dd")
-            val formattedDate: String = formatter.format(calendar.getTime())*/
+            }
+        viewModel.forecast.observe(viewLifecycleOwner) {
+            putingInPlaceHolder(it)
+            adapterr.notifyDataSetChanged()
+        }
+
+
+        /*val calendar: Calendar = Calendar.getInstance()
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val formattedDate: String = formatter.format(calendar.getTime())*/
 
 
 
