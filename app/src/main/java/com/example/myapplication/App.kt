@@ -8,6 +8,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class App : Application() {
+
     override fun onCreate() {
         super.onCreate()
         startKoin {
@@ -15,5 +16,6 @@ class App : Application() {
             modules(listOf(dataModule,domainModule,viewModelModule))
         }
     }
+    fun getcont()=this@App
 
 }

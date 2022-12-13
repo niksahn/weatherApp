@@ -8,7 +8,9 @@ interface Interactor {
      suspend fun setApiRezults(): ModelCurrent?
      suspend fun setApiForecastRezults(): List<Model>?
      suspend fun InsertCurrentWeather()
-    fun GeturrentWeather(): ModelCurrent
+     fun GetCurrentWeather(): ModelCurrent
      fun setTime(): Long?
+     suspend fun InsertForecast()
+     fun GetForecast(): List<Model>
 
 }

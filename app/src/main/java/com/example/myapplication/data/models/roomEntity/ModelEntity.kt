@@ -2,6 +2,7 @@ package com.example.myapplication.data.models.roomEntity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.myapplication.data.models.Model
 
 
 @Entity(tableName = "ListForecastWeather")
@@ -13,4 +14,4 @@ data class ModelEntity(
     var icon: String? = null,
     var dtTxt: String? = null
 
-)
+){fun toList()= Model(null,temp,feelsLike,humidity,icon,dtTxt) }

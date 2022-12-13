@@ -2,7 +2,6 @@ package com.example.myapplication.domain.interactor
 
 import com.example.myapplication.Constants
 import com.example.myapplication.data.models.Model
-import com.example.myapplication.data.models.ModelApiCurrent
 import com.example.myapplication.data.models.modelForviewModel.ModelCurrent
 import com.example.myapplication.domain.repository.ApiRepository
 import com.example.myapplication.domain.repository.DbRepository
@@ -37,16 +36,26 @@ class InteractorImpl(
 
     override suspend fun setApiForecastRezults(): List<Model>? {
         val joblist = ApiRepository.getApiForecastRezults()
-
-        return joblist?.map {it.toModel()  }
+      //  println("API")
+        println(joblist)
+        return joblist[0].list.map { it.toList() }
 
     }
     override suspend fun InsertCurrentWeather() {
         ApiRepository.getApiRezults()?.let { DbRepository.insertCurWeatherFromApi(it) }
     }
 
-    override fun GeturrentWeather(): ModelCurrent {
+    override fun GetCurrentWeather(): ModelCurrent {
         return DbRepository.getCurWeather().toModelCurrent()
     }
 
+    override suspend fun InsertForecast() {
+        DbRepository.insertForecastFromApi(ApiRepository.getApiForecastRezults()[0])
+    }
+
+    override fun GetForecast(): List<Model> {
+        //println("BBBBBBBBBDDDDDDDDDD")
+       // println(DbRepository.GetForecast().map { it.toList() })
+        return DbRepository.GetForecast().map { it.toList() }
+    }
 }

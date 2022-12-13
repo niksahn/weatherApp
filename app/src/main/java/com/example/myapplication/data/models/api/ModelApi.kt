@@ -2,7 +2,7 @@ package com.example.myapplication.data.api
 
 
 import com.example.myapplication.data.models.*
-import com.example.myapplication.data.models.List
+import com.example.myapplication.data.models.roomEntity.ModelEntity
 import com.google.gson.annotations.SerializedName
 
 data class ModelApi (
@@ -14,7 +14,7 @@ data class ModelApi (
    @SerializedName("city"    ) var city    : CityApi?           = CityApi()
 
 ){
-   fun toModel()= Model(cod,message,cnt, list.map { it.toList() } as ArrayList<List>,city?.toCity())
+
 }
 data class MainApi (
 
@@ -28,10 +28,7 @@ data class MainApi (
    @SerializedName("humidity"   ) var humidity  : Int?    = null,
    @SerializedName("temp_kf"    ) var tempKf    : Double? = null
 
-){
-   fun toMain()=Main(temp,feelsLike,tempMin,tempMax,pressure,seaLevel,grndLevel,humidity,tempKf)
-}
-
+)
 data class WeatherApi (
 
    @SerializedName("id"          ) var id          : Int?    = null,
@@ -39,10 +36,7 @@ data class WeatherApi (
    @SerializedName("description" ) var description : String? = null,
    @SerializedName("icon"        ) var icon        : String? = null
 
-){
-   fun toWeather()=Weather(id,main,description,icon)
-}
-
+)
 data class Clouds (
 
    @SerializedName("all" ) var all : Int? = null
@@ -55,9 +49,7 @@ data class WindApi (
    @SerializedName("deg"   ) var deg   : Int?    = null,
    @SerializedName("gust"  ) var gust  : Double? = null
 
-){
-   fun toWind()=Wind(speed,deg,gust)
-}
+)
 
 data class Sys (
 
@@ -78,8 +70,8 @@ data class ListApi (
    @SerializedName("dt_txt"     ) var dtTxt      : String?            = null
 
 ){
-   fun toList()= List(dt,main?.toMain(),
-      weather.map{it.toWeather()} as ArrayList<Weather>,com.example.myapplication.data.models.Clouds(clouds?.all),wind?.toWind(),visibility,pop,null,dtTxt)
+   fun toList()=Model(null,main?.temp,main?.feelsLike,main?.humidity,weather[0]?.icon,dtTxt)
+   fun toListEntity()= ModelEntity(null,main?.temp,main?.feelsLike,main?.humidity,weather[0]?.icon,dtTxt)
 }
 
 data class Coord (
@@ -100,10 +92,7 @@ data class CityApi (
    @SerializedName("sunrise"    ) var sunrise    : Int?    = null,
    @SerializedName("sunset"     ) var sunset     : Int?    = null
 
-){
-fun toCity()= City(id,name,null,country,population,timezone,sunrise,sunset)
-}
-
+)
 
 
 

@@ -42,6 +42,8 @@ class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForeca
             }
 
         }
+        println("Appppppiiiiiii")
+        println(q)
         return q
     }
 }
