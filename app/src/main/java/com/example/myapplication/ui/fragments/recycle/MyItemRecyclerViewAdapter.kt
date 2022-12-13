@@ -1,18 +1,14 @@
-package com.example.myapplication.ui.Fragm.recycle
+package com.example.myapplication.ui.fragments.recycle
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.myapplication.Fragm.WeatherFr
 
 import com.example.myapplication.data.models.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.myapplication.databinding.FragmentItemBinding
-import kotlin.math.round
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].

@@ -24,7 +24,9 @@
 
             android:gravity="clip_horizontal|center|center_horizontal"
             android:text='@string/weather'
-            android:textSize="45sp" />
+            android:textColor="?android:attr/textColorSecondaryInverse"
+            android:textSize="45sp"
+            tools:layout_editor_absoluteX="16dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -56,7 +58,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView3"
-                android:name="com.example.myapplication.ui.Fragm.ItemFragment"
+                android:name="com.example.myapplication.ui.fragments.ItemFragment"
                 android:layout_width="match_parent"
                 android:layout_height="289dp"
                 tools:layout="@layout/elem_weather_forecast"

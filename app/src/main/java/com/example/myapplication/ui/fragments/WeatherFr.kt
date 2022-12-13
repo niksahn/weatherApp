@@ -1,6 +1,6 @@
 package com.example.myapplication.Fragm
 
-import androidx.lifecycle.ViewModelProvider
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
-import com.example.myapplication.data.models.Model
-import com.example.myapplication.data.models.ModelApiCurrent
+
+import com.example.myapplication.data.models.modelForviewModel.ModelCurrent
 import com.example.myapplication.ui.ViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.round
@@ -19,7 +19,7 @@ import kotlin.math.round
 class WeatherFr : Fragment() {
 
     companion object {
-        var  weatherfr: ModelApiCurrent?=ModelApiCurrent();
+        var  weatherfr: ModelCurrent?= ModelCurrent()
         fun newInstance() = WeatherFr()
     }
 
@@ -46,28 +46,22 @@ class WeatherFr : Fragment() {
         val image:ImageView=view.findViewById(R.id.imageView2)
 
         viewModel.weather.observe(viewLifecycleOwner) {
-            weatherfr=it;
+            weatherfr=it
 
-        val k= weatherfr?.main?.temp?.minus(273.15)?.let { it1 -> round(it1).toInt() };
-        temp.text=(k).toString()+"\u00B0"
-        date.text= weatherfr?.weather?.get(0)?.description
+            val k= weatherfr?.temp?.minus(273.15)?.let { it1 -> round(it1).toInt() }
+            temp.text=(k).toString()+"\u00B0"
+        date.text= weatherfr?.description
         city.text=weatherfr?.name
-        pressure.text= (weatherfr?.main?.pressure?.times(0.750063755419211)?.let { it1 -> round(it1).toInt() }).toString()+" мм р.ст."
-        humidity.text=weatherfr?.main?.humidity.toString()+ "%"
-        wind.text=weatherfr?.wind?.speed.toString()+" м/с"
+        pressure.text= (weatherfr?.pressure?.times(0.750063755419211)?.let { it1 -> round(it1).toInt() }).toString()+" мм р.ст."
+        humidity.text=weatherfr?.humidity.toString()+ "%"
+        wind.text=weatherfr?.speed.toString()+" м/с"
         Glide
             .with(image)
-            .load("http://openweathermap.org/img/w/${weatherfr?.weather?.get(0)?.icon}.png")
+            .load("http://openweathermap.org/img/w/${weatherfr?.icon}.png")
             .into(image)}
         //
 
         }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        //viewModel = ViewModelProvider(this).get(BlankViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }
 

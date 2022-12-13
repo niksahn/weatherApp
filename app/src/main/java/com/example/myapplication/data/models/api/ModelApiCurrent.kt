@@ -1,5 +1,8 @@
 package com.example.myapplication.data.models
 
+import com.example.myapplication.data.models.modelForviewModel.*
+import com.example.myapplication.data.models.roomEntity.ModelCurrentEntity
+
 import com.google.gson.annotations.SerializedName
 data class ModelApiCurrent (
 
@@ -17,7 +20,10 @@ data class ModelApiCurrent (
     @SerializedName("name"       ) var name       : String?            = null,
     @SerializedName("cod"        ) var cod        : Int?               = null
 
-)
+){
+    fun toModelCurrent()=ModelCurrent(0,base,visibility,dt,timezone,name,cod,weather[0].icon,weather[0].description,main?.temp,main?.pressure,main?.humidity,wind?.speed)
+    fun toModelCurrentEntity()=ModelCurrentEntity(0,base,visibility,dt,timezone,name,cod,weather[0].icon,weather[0].description,main?.temp,main?.pressure,main?.humidity,wind?.speed)
+}
 data class CoordApiCurrent (
 
     @SerializedName("lon" ) var lon : Double? = null,
