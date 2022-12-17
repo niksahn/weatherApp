@@ -1,6 +1,7 @@
 package com.example.myapplication.data.api.repository
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.Constants
 import com.example.myapplication.data.api.ApiCurrent
@@ -11,13 +12,19 @@ import com.example.myapplication.data.models.Model
 
 import com.example.myapplication.data.models.ModelApiCurrent
 import com.example.myapplication.domain.repository.ApiRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 
-class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForecast: ApiForecast/*,private val city:Location*/) : ApiRepository {
+class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForecast: ApiForecast) : ApiRepository {
+
+
     override suspend fun getApiRezults(): ModelApiCurrent? {
         var q: ModelApiCurrent? = null
         val jobList = mutableListOf<Deferred<ModelApiCurrent>>()

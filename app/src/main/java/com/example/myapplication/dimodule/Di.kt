@@ -1,8 +1,13 @@
 package com.example.myapplication.dimodule
-import android.content.ContentValues.TAG
+
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Location
+
 import android.util.Log
+import androidx.core.content.ContextCompat
+
 import androidx.room.Room
 import org.koin.dsl.module
 import com.example.myapplication.Constants
@@ -10,24 +15,29 @@ import com.example.myapplication.data.api.ApiCurrent
 import com.example.myapplication.data.api.ApiForecast
 
 import com.example.myapplication.data.api.repository.ApiRepositoryImpl
+import com.example.myapplication.data.repository.CityRepositoryImpl
 import com.example.myapplication.data.repository.DbRepositoryImpl
 import com.example.myapplication.data.repository.SharedPreferencesRepositoryImpl
 import com.example.myapplication.data.room.AppDatabase
 import com.example.myapplication.domain.interactor.Interactor
 import com.example.myapplication.domain.interactor.InteractorImpl
 import com.example.myapplication.domain.repository.ApiRepository
+import com.example.myapplication.domain.repository.CityRepository
 import com.example.myapplication.domain.repository.DbRepository
 import com.example.myapplication.domain.repository.SharedPreferencesRepository
 import com.example.myapplication.ui.ViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
+
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationTokenSource
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
-    single<ApiRepository> { ApiRepositoryImpl(get(),get()/*,get()*/) }
+    single<ApiRepository> { ApiRepositoryImpl(get(),get()) }
+    single<CityRepository> { CityRepositoryImpl(get()) }
     single<SharedPreferencesRepository> { SharedPreferencesRepositoryImpl(get()) }
     single<DbRepository> { DbRepositoryImpl(get()) }
     single {
@@ -56,17 +66,18 @@ val dataModule = module {
         ).build()
     }
     single{
+        if (ContextCompat.checkSelfPermission(androidContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            &&
+            ContextCompat.checkSelfPermission(androidContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            askForLocationPermissions(androidContext());
+        }else {
+            LocationServices.getFusedLocationProviderClient(androidContext())
+        }
 
-        LocationServices.getFusedLocationProviderClient( androidContext()).lastLocation.addOnSuccessListener {
-                location : Location? ->
-            if (location != null) {
-                Log.d(TAG, "Location returned.");
-                // write code here to to make the API call to the weather service and update the UI
-                // this code here is running on the Main UI thread as far as I understand
-            } else {
-                Log.d(TAG, "Null location returned.");
-            }
-        }.result
 
     }
 
