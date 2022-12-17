@@ -3,6 +3,8 @@ package com.example.myapplication.ui
 import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,18 +22,22 @@ class ViewModel(private val interactor: Interactor)  : ViewModel(){
     var weather: MutableLiveData<ModelCurrent> = MutableLiveData()
     var forecast: MutableLiveData<List<Model>> = MutableLiveData()
     var ap= App()
-    private var time: Long? = 0
+    private var time: Long? = null
     init {
         time = interactor.setTime()
-        val t = time ?: 0.toLong()
-      if (((t == 0.toLong()) || (Date().time - t > 60 * 100))){// впервые/ 10 минут прошли
+        val t = time
+
+        println(t)
+      if (((t == null) || (Date().time - t > 600*100))){// впервые/ 10 минут прошли
             viewModelScope.launch(Dispatchers.IO) {
                 supervisorScope {
                     try{
+
                     weather.postValue(interactor.setApiRezults())
                     interactor.InsertCurrentWeather()
                     forecast.postValue(interactor.setApiForecastRezults())
                     interactor.InsertForecast()
+
                     }
                     catch (e:Exception)
                     {
@@ -44,6 +50,7 @@ class ViewModel(private val interactor: Interactor)  : ViewModel(){
         } else {
             viewModelScope.launch(Dispatchers.IO) {
                 supervisorScope {
+
                     forecast.postValue(interactor.GetForecast())
                     weather.postValue(interactor.GetCurrentWeather())
                 }

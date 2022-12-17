@@ -27,7 +27,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
-    single<ApiRepository> { ApiRepositoryImpl(get(),get(),get()) }
+    single<ApiRepository> { ApiRepositoryImpl(get(),get()/*,get()*/) }
     single<SharedPreferencesRepository> { SharedPreferencesRepositoryImpl(get()) }
     single<DbRepository> { DbRepositoryImpl(get()) }
     single {
@@ -77,7 +77,7 @@ val domainModule = module {
 
 }
 val viewModelModule = module {
-    viewModel {
+    single  {
         ViewModel(get())
     }
 }

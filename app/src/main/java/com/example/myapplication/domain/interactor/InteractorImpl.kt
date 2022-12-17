@@ -15,11 +15,12 @@ class InteractorImpl(
 
 ) : Interactor {
     override fun setTime(): Long? {
-        var time: Long? = 0
+        var time: Long? = null
         val editor = SharedPreferencesRepository.timeEditor()
         if (!SharedPreferencesRepository.created()) {//запустили впервые
             editor.putString(Constants.APP_PREFERENCES_TIME, Date().time.toString())
             editor.apply()
+           return null
         } else {//обновили время
             time = SharedPreferencesRepository.timeSetting()
             editor.putString(Constants.APP_PREFERENCES_TIME, Date().time.toString())
