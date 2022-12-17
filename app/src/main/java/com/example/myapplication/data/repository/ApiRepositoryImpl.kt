@@ -1,5 +1,6 @@
 package com.example.myapplication.data.api.repository
 
+import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.Constants
 import com.example.myapplication.data.api.ApiCurrent
@@ -16,13 +17,13 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 
-class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForecast: ApiForecast) : ApiRepository {
+class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForecast: ApiForecast,private val city:Location) : ApiRepository {
     override suspend fun getApiRezults(): ModelApiCurrent? {
         var q: ModelApiCurrent? = null
         val jobList = mutableListOf<Deferred<ModelApiCurrent>>()
         withContext(Dispatchers.IO) {
             jobList.add(async {
-                apiCurrent.getData("Пенза", Constants.token, "ru").execute().body()!!
+                apiCurrent.getData(city.latitude.toString(),city.longitude.toString(), Constants.token, "ru").execute().body()!!
             })
             q = jobList.mapNotNull {
                 it.await()
@@ -36,7 +37,7 @@ class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForeca
         var q=listOf<ModelApi>()
         val jobList = mutableListOf<Deferred<ModelApi>>()
         withContext(Dispatchers.IO) {
-            jobList.add(async {apiForecast.getData("Пенза",Constants.token,"ru").execute().body()!!})
+            jobList.add(async {apiForecast.getData(city.latitude.toString(),city.longitude.toString(),Constants.token,"ru").execute().body()!!})
             q=jobList.mapNotNull {
                 it.await()
             }

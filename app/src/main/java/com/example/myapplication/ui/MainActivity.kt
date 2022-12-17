@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             println(icon)
             icon = icon?.substring(0, 2)
             println(icon)
-            //icon="50"
+           // icon="13"
             var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
             toolbar.setBackgroundResource(draw)
         }

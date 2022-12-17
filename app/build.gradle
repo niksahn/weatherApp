@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.android.application'
+
+
+
 android {
     namespace 'com.example.myapplication'
     compileSdk 33
@@ -38,7 +42,10 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     def koin_version = "3.2.2"
 
     implementation "io.insert-koin:koin-android:$koin_version"
