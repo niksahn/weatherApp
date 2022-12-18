@@ -1,10 +1,17 @@
 package com.example.myapplication.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.example.myapplication.R
+import com.example.myapplication.data.repository.CityRepositoryImpl
+import com.example.myapplication.dimodule.askForLocationPermissions
+import com.example.myapplication.domain.repository.CityRepository
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -16,12 +23,25 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         toolbar=findViewById(R.id.toolbar)
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            &&
+            ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            askForLocationPermissions(this@MainActivity)
+        }else {
+           finish()
+
+        }
         viewModel.weather.observe(this) {
             icon = it.icon
             println(icon)
             icon = icon?.substring(0, 2)
             println(icon)
-           // icon="13"
+            //icon="13"
             var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
             toolbar.setBackgroundResource(draw)
         }
@@ -30,4 +50,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 }

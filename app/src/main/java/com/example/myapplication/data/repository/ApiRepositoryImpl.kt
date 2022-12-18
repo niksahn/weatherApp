@@ -23,7 +23,11 @@ import kotlinx.coroutines.withContext
 
 
 class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForecast: ApiForecast) : ApiRepository {
+override var city:Location?=null
+set(value) {
+    field = value
 
+}
 
     override suspend fun getApiRezults(): ModelApiCurrent? {
         var q: ModelApiCurrent? = null
@@ -31,21 +35,20 @@ class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForeca
         withContext(Dispatchers.IO) {
             jobList.add(async {
                 apiCurrent.getData(
-                    "penza", Constants.token, "ru").execute().body()!!
+                    city?.longitude.toString(), city?.latitude.toString(),Constants.token, "ru").execute().body()!!
             })
             q = jobList.mapNotNull {
                 it.await()
             }[0]
-
-
         }
+
         return q
     }
     override suspend fun getApiForecastRezults(): List<ModelApi> {
         var q=listOf<ModelApi>()
         val jobList = mutableListOf<Deferred<ModelApi>>()
         withContext(Dispatchers.IO) {
-            jobList.add(async {apiForecast.getData("penza",Constants.token,"ru").execute().body()!!})
+            jobList.add(async {apiForecast.getData( city?.longitude.toString(), city?.latitude.toString(),Constants.token,"ru").execute().body()!!})
             q=jobList.mapNotNull {
                 it.await()
             }

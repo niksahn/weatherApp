@@ -24,6 +24,7 @@ class ViewModel(private val interactor: Interactor)  : ViewModel(){
     var ap= App()
     private var time: Long? = null
     init {
+        interactor.getcity()
         time = interactor.setTime()
         val t = time
 

@@ -3,18 +3,18 @@ package com.example.myapplication.dimodule
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import org.koin.core.KoinApplication
 
 var LOCATION_PERMISSION_REQUEST_CODE=0
-fun askForLocationPermissions(cont : Context ) {
+fun askForLocationPermissions(cont: Activity) {
 
 
     if (ActivityCompat.shouldShowRequestPermissionRationale(
-            cont as Activity,
+            cont ,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
     ) {
@@ -47,7 +47,9 @@ fun askForLocationPermissions(cont : Context ) {
         // app-defined int constant. The callback method gets the
         // result of the request.
     } }
-fun isPermissionGranted(
+
+
+/*fun isPermissionGranted(
     grantPermissions: Array<String?>, grantResults: IntArray,
     permission: String
 ): Boolean {
@@ -58,3 +60,4 @@ fun isPermissionGranted(
     }
     return false
 }
+*/

@@ -4,6 +4,7 @@ import com.example.myapplication.Constants
 import com.example.myapplication.data.models.Model
 import com.example.myapplication.data.models.modelForviewModel.ModelCurrent
 import com.example.myapplication.domain.repository.ApiRepository
+import com.example.myapplication.domain.repository.CityRepository
 import com.example.myapplication.domain.repository.DbRepository
 import com.example.myapplication.domain.repository.SharedPreferencesRepository
 import java.util.*
@@ -11,9 +12,14 @@ import java.util.*
 class InteractorImpl(
     private val ApiRepository: ApiRepository,
     private val DbRepository: DbRepository,
-    private val SharedPreferencesRepository: SharedPreferencesRepository
+    private val SharedPreferencesRepository: SharedPreferencesRepository,
+    private val CityRepository: CityRepository
 
 ) : Interactor {
+    override fun getcity() {
+        ApiRepository.city=CityRepository.getCity()
+
+    }
     override fun setTime(): Long? {
         var time: Long? = null
         val editor = SharedPreferencesRepository.timeEditor()

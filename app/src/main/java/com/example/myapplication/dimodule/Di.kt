@@ -1,11 +1,10 @@
 package com.example.myapplication.dimodule
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
 
-import android.util.Log
 import androidx.core.content.ContextCompat
 
 import androidx.room.Room
@@ -27,9 +26,7 @@ import com.example.myapplication.domain.repository.DbRepository
 import com.example.myapplication.domain.repository.SharedPreferencesRepository
 import com.example.myapplication.ui.ViewModel
 
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.CancellationTokenSource
 import org.koin.android.ext.koin.androidContext
 
 import retrofit2.Retrofit
@@ -66,25 +63,15 @@ val dataModule = module {
         ).build()
     }
     single{
-        if (ContextCompat.checkSelfPermission(androidContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-            &&
-            ContextCompat.checkSelfPermission(androidContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            askForLocationPermissions(androidContext());
-        }else {
-            LocationServices.getFusedLocationProviderClient(androidContext())
-        }
 
+        LocationServices.getFusedLocationProviderClient(androidContext())
 
     }
 
 
 }
 val domainModule = module {
-    factory<Interactor> { InteractorImpl(get(),get(),get()) }
+    factory<Interactor> { InteractorImpl(get(),get(),get(),get()) }
 
 }
 val viewModelModule = module {
