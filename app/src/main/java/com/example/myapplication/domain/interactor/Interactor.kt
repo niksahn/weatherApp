@@ -6,7 +6,7 @@ import com.example.myapplication.data.models.ModelApiCurrent
 import com.example.myapplication.data.models.modelForviewModel.ModelCurrent
 
 interface Interactor {
-     fun getcity()
+     fun getcity(requestCode: Int, grantResults: IntArray)
      suspend fun setApiRezults(): ModelCurrent?
      suspend fun setApiForecastRezults(): List<Model>?
      suspend fun InsertCurrentWeather()

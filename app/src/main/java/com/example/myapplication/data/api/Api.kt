@@ -5,7 +5,7 @@ interface ApiForecast {
     @GET("data/2.5/forecast")
     fun getData(
         @Query("lat") lat: String?,
-        @Query("lan") lan: String?,
+        @Query("lon") lon: String?,
         @Query("appid") appid: String,
         @Query("lang") lang: String,
     ): Call<ModelApi>

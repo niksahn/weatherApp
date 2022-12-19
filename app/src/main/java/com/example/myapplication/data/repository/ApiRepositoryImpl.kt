@@ -20,6 +20,8 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 
 class ApiRepositoryImpl(private val apiCurrent: ApiCurrent,private val apiForecast: ApiForecast) : ApiRepository {
@@ -33,9 +35,12 @@ set(value) {
         var q: ModelApiCurrent? = null
         val jobList = mutableListOf<Deferred<ModelApiCurrent>>()
         withContext(Dispatchers.IO) {
+
             jobList.add(async {
+                println(city?.latitude.toString()+" LOCAT "+city?.longitude.toString())
                 apiCurrent.getData(
-                    city?.longitude.toString(), city?.latitude.toString(),Constants.token, "ru").execute().body()!!
+
+                    ((city?.latitude?.times(100))?.roundToInt()?.div(100.0)).toString(), ((city?.longitude?.times(100))?.roundToInt()?.div(100.0)).toString(),Constants.token, "ru").execute().body()!!
             })
             q = jobList.mapNotNull {
                 it.await()
@@ -48,14 +53,14 @@ set(value) {
         var q=listOf<ModelApi>()
         val jobList = mutableListOf<Deferred<ModelApi>>()
         withContext(Dispatchers.IO) {
-            jobList.add(async {apiForecast.getData( city?.longitude.toString(), city?.latitude.toString(),Constants.token,"ru").execute().body()!!})
+            jobList.add(async {apiForecast.getData( ((city?.latitude?.times(100))?.roundToInt()?.div(100.0)).toString(), ((city?.longitude?.times(100))?.roundToInt()?.div(100.0)).toString(),Constants.token,"ru").execute().body()!!})
             q=jobList.mapNotNull {
                 it.await()
             }
 
         }
-        println("Appppppiiiiiii")
-        println(q)
+       // println("Appppppiiiiiii")
+        //println(q)
         return q
     }
 }

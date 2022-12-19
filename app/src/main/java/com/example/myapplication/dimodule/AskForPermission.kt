@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import org.koin.core.KoinApplication
 
-var LOCATION_PERMISSION_REQUEST_CODE=0
+var LOCATION_PERMISSION_REQUEST_CODE=1
 fun askForLocationPermissions(cont: Activity) {
 
 
@@ -42,6 +42,9 @@ fun askForLocationPermissions(cont: Activity) {
             cont, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             LOCATION_PERMISSION_REQUEST_CODE
         )
+        println(LOCATION_PERMISSION_REQUEST_CODE.toString()+" REQUESTCODE")
+
+
 
         // MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION is an
         // app-defined int constant. The callback method gets the

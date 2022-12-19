@@ -32,9 +32,6 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
             askForLocationPermissions(this@MainActivity)
-        }else {
-           finish()
-
         }
         viewModel.weather.observe(this) {
             icon = it.icon
@@ -49,6 +46,10 @@ class MainActivity : AppCompatActivity() {
         //layoutInflater.inflate(R.layout.main_weather_now,mainFrame , false)
 
 
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+       viewModel.permissionReqCode.postValue(requestCode)
+        viewModel.permissionReqGranted.postValue(grantResults)
     }
 
 }
