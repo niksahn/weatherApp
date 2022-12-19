@@ -4,14 +4,12 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.FrameLayout
+
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.myapplication.R
-import com.example.myapplication.data.repository.CityRepositoryImpl
 import com.example.myapplication.dimodule.askForLocationPermissions
 import com.example.myapplication.domain.repository.CityRepository
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -48,8 +46,8 @@ class MainActivity : AppCompatActivity() {
 
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-       viewModel.permissionReqCode.postValue(requestCode)
-        viewModel.permissionReqGranted.postValue(grantResults)
+        CityRepository.permissionReqCode=requestCode
+        CityRepository.permissionReqGranted=grantResults
         println("COOODE "+requestCode.toString())
     }
 

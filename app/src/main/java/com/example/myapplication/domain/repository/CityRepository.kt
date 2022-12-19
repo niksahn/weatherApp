@@ -4,4 +4,7 @@ import android.location.Location
 
 interface CityRepository {
     fun getCity(): Location?
+    var permissionReqCode:Int
+
+    var permissionReqGranted:IntArray?
 }

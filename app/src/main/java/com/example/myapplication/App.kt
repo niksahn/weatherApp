@@ -1,10 +1,7 @@
 package com.example.myapplication
 
 import android.app.Application
-import com.example.myapplication.dimodule.askForLocationPermissions
-import com.example.myapplication.dimodule.dataModule
-import com.example.myapplication.dimodule.domainModule
-import com.example.myapplication.dimodule.viewModelModule
+import com.example.myapplication.dimodule.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -15,7 +12,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
 
-            modules(listOf(dataModule,domainModule,viewModelModule))
+            modules(listOf(dataModule,domainModule,viewModelModule, mainAct))
         }
 
     }

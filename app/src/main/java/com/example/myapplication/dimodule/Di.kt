@@ -24,6 +24,7 @@ import com.example.myapplication.domain.repository.ApiRepository
 import com.example.myapplication.domain.repository.CityRepository
 import com.example.myapplication.domain.repository.DbRepository
 import com.example.myapplication.domain.repository.SharedPreferencesRepository
+import com.example.myapplication.ui.MainActivity
 import com.example.myapplication.ui.ViewModel
 
 import com.google.android.gms.location.LocationServices
@@ -73,6 +74,9 @@ val dataModule = module {
 val domainModule = module {
     factory<Interactor> { InteractorImpl(get(),get(),get(),get()) }
 
+}
+val mainAct=module{
+    factory<MainActivity>{MainActivity(get())}
 }
 val viewModelModule = module {
     single  {
