@@ -2,6 +2,7 @@ package com.example.myapplication.ui
 
 import android.content.Context
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.App
 import com.example.myapplication.data.models.Model
 import com.example.myapplication.data.models.modelForviewModel.ModelCurrent
+import com.example.myapplication.dimodule.LOCATION_PERMISSION_REQUEST_CODE
 import com.example.myapplication.domain.interactor.Interactor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,19 +36,13 @@ class ViewModel(private val interactor: Interactor)  : ViewModel(){
       if (true){// впервые/ 10 минут прошли
             viewModelScope.launch(Dispatchers.IO) {
                 supervisorScope {
-
-                    interactor.getcity(permissionReqCode.value,permissionReqGranted.value)
+                    interactor.getcity()
                     weather.postValue(interactor.setApiRezults())
                     interactor.InsertCurrentWeather()
                     forecast.postValue(interactor.setApiForecastRezults())
                     interactor.InsertForecast()
-
-
-
-
-                }
             }
-        } else {
+        }} else {
             viewModelScope.launch(Dispatchers.IO) {
                 supervisorScope {
 

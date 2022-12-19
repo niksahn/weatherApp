@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
        viewModel.permissionReqCode.postValue(requestCode)
         viewModel.permissionReqGranted.postValue(grantResults)
+        println("COOODE "+requestCode.toString())
     }
 
 }

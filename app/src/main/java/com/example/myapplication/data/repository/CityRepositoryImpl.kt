@@ -22,11 +22,9 @@ class CityRepositoryImpl(private val cityTask: FusedLocationProviderClient):City
 
 
 
-    override fun getCity(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray): Location? {
-        when(requestCode){
-            LOCATION_PERMISSION_REQUEST_CODE -> {
-                if( grantResults[0] == PackageManager.PERMISSION_GRANTED )
-                {var city = cityTask.getCurrentLocation(priority, cancellationTokenSource.token)
+    override fun getCity(): Location? {
+
+                var city = cityTask.getCurrentLocation(priority, cancellationTokenSource.token)
                     .addOnSuccessListener { location ->
                         Log.d("Location", "location is found: $location")
                         loc?.value?.latitude = location.latitude
@@ -44,12 +42,11 @@ class CityRepositoryImpl(private val cityTask: FusedLocationProviderClient):City
 
                 //println(loc?.latitude.toString()+" LOCAT")
                 return Tasks.await(city)}
-                else{ }
 
-            }
-        }
-        return loc?.value
-   }
+
+
+
+
 }
 
 

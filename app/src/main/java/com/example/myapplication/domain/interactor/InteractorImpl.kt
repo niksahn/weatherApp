@@ -16,8 +16,8 @@ class InteractorImpl(
     private val CityRepository: CityRepository
 
 ) : Interactor {
-    override fun getcity(requestCode: Int, grantResults: IntArray) {
-        ApiRepository.city=CityRepository.getCity(requestCode,null,grantResults)
+    override fun getcity() {
+        ApiRepository.city=CityRepository.getCity()
 
     }
     override fun setTime(): Long? {

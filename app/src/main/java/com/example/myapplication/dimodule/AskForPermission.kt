@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import org.koin.core.KoinApplication
 
-var LOCATION_PERMISSION_REQUEST_CODE=1
+var LOCATION_PERMISSION_REQUEST_CODE=0
 fun askForLocationPermissions(cont: Activity) {
 
 
