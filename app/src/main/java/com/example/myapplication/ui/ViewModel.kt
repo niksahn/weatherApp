@@ -33,9 +33,11 @@ class ViewModel(private val interactor: Interactor)  : ViewModel(){
         val t = time
 
         println(t)
-      if (((t == null) || (Date().time - t > 600*100))){// впервые/ 10 минут прошли
+        //((t == null) || (Date().time - t > 600*100))|| permission==0
+      if (((t == null) || (Date().time - t > 600*100))|| permission==0){// впервые/ 10 минут прошли
             viewModelScope.launch(Dispatchers.IO) {
                 supervisorScope {
+                    while (permission==0){}
                     interactor.getcity()
                     weather.postValue(interactor.setApiRezults())
                     interactor.InsertCurrentWeather()

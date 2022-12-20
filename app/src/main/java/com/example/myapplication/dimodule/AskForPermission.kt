@@ -7,9 +7,10 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.example.myapplication.ui.permission
 import org.koin.core.KoinApplication
 
-var LOCATION_PERMISSION_REQUEST_CODE=0
+var LOCATION_PERMISSION_REQUEST_CODE=1
 fun askForLocationPermissions(cont: Activity) {
 
 
@@ -26,6 +27,7 @@ fun askForLocationPermissions(cont: Activity) {
                     cont, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     LOCATION_PERMISSION_REQUEST_CODE
                 )
+
             })
             .setNegativeButton("Not now", DialogInterface.OnClickListener { dialog, which ->
                 //                                        //Do nothing

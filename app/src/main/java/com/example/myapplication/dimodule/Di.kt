@@ -35,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
     single<ApiRepository> { ApiRepositoryImpl(get(),get()) }
-    single<CityRepository> { CityRepositoryImpl(get()) }
+    single<CityRepository> { CityRepositoryImpl(get(),androidContext()) }
     single<SharedPreferencesRepository> { SharedPreferencesRepositoryImpl(get()) }
     single<DbRepository> { DbRepositoryImpl(get()) }
     single {
@@ -76,7 +76,7 @@ val domainModule = module {
 
 }
 val mainAct=module{
-    factory<MainActivity>{MainActivity(get())}
+    factory {MainActivity( )}
 }
 val viewModelModule = module {
     single  {
