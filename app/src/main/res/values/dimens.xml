@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text_margin">16dp</dimen>
+    <dimen name="text_margin">10dp</dimen>
+    <dimen name="horizontal_margin">64dp</dimen>
+    <dimen name="vertical_margin">32dp</dimen>
+    <dimen name="textBig_size">40sp</dimen>
+    <dimen name="textMed_size">20sp</dimen>
+    <dimen name="textSmall_size">18sp</dimen>
+    <dimen name="Image_size">40dp</dimen>
 </resources>
