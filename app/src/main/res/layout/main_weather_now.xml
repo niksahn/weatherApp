@@ -74,9 +74,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
+                    android:layout_marginStart="24dp"
                     android:text="city"
                     android:textSize="@dimen/textMed_size"
                     tools:ignore="SpeakableTextPresentCheck" />
+
+                <ImageView
+                    android:id="@+id/dot"
+                    android:layout_width="24dp"
+                    android:layout_height="34dp"
+                     tools:src="@drawable/locat_dot"
+                    android:background="?attr/colorPrimaryVariant"/>
 
 
         </FrameLayout>

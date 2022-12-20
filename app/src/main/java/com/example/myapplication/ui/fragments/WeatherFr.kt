@@ -44,7 +44,7 @@ class WeatherFr : Fragment() {
         val pressure: TextView =   view.findViewById(R.id.pressureval)
         val humidity: TextView =   view.findViewById(R.id.humidityval)
         val image:ImageView=view.findViewById(R.id.imageView2)
-
+        val dot:ImageView=view.findViewById(R.id.dot)
         viewModel.weather.observe(viewLifecycleOwner) {
             weatherfr=it
 
@@ -58,8 +58,14 @@ class WeatherFr : Fragment() {
         Glide
             .with(image)
             .load("http://openweathermap.org/img/w/${weatherfr?.icon}.png")
-            .into(image)}
-        //
+            .into(image)
+            Glide
+                .with(dot)
+                .load(R.drawable.dot)
+                .into(dot)
+          }
+        //@res/drawable/locat_dot.png
+
 
         }
 
