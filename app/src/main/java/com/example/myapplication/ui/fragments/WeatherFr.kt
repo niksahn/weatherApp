@@ -19,7 +19,7 @@ import kotlin.math.round
 class WeatherFr : Fragment() {
 
     companion object {
-        var  weatherfr: ModelCurrent?= ModelCurrent()
+        var weatherfr: ModelCurrent? = ModelCurrent()
         fun newInstance() = WeatherFr()
     }
 
@@ -31,44 +31,42 @@ class WeatherFr : Fragment() {
     ): View? {
 
 
-
         return inflater.inflate(R.layout.main_weather_now, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        val temp: TextView =view.findViewById(R.id.textView)
-        val date: TextView =   view.findViewById(R.id.textView2)
-        val city: TextView =   view.findViewById(R.id.textView3)
-        val wind: TextView =   view.findViewById(R.id.windval)
-        val pressure: TextView =   view.findViewById(R.id.pressureval)
-        val humidity: TextView =   view.findViewById(R.id.humidityval)
-        val image:ImageView=view.findViewById(R.id.imageView2)
-        val dot:ImageView=view.findViewById(R.id.dot)
-        viewModel.weather.observe(viewLifecycleOwner) {
-            weatherfr=it
+        val temp: TextView = view.findViewById(R.id.textView)
+        val date: TextView = view.findViewById(R.id.textView2)
+        val city: TextView = view.findViewById(R.id.textView3)
+        val wind: TextView = view.findViewById(R.id.windval)
+        val pressure: TextView = view.findViewById(R.id.pressureval)
+        val humidity: TextView = view.findViewById(R.id.humidityval)
+        val image: ImageView = view.findViewById(R.id.imageView2)
 
-            val k= weatherfr?.temp?.minus(273.15)?.let { it1 -> round(it1).toInt() }
-            temp.text=(k).toString()+"\u00B0"
-        date.text= weatherfr?.description
-        city.text=weatherfr?.name
-        pressure.text= (weatherfr?.pressure?.times(0.750063755419211)?.let { it1 -> round(it1).toInt() }).toString()+" мм р.ст."
-        humidity.text=weatherfr?.humidity.toString()+ "%"
-        wind.text=weatherfr?.speed.toString()+" м/с"
-        Glide
-            .with(image)
-            .load("http://openweathermap.org/img/w/${weatherfr?.icon}.png")
-            .into(image)
+        viewModel.weather.observe(viewLifecycleOwner) {
+            weatherfr = it
+
+            val k = weatherfr?.temp?.minus(273.15)?.let { it1 -> round(it1).toInt() }
+            temp.text = (k).toString() + "\u00B0"
+            date.text = weatherfr?.description
+            city.text = weatherfr?.name
+            pressure.text = (weatherfr?.pressure?.times(0.750063755419211)
+                ?.let { it1 -> round(it1).toInt() }).toString() + " мм р.ст."
+            humidity.text = weatherfr?.humidity.toString() + "%"
+            wind.text = weatherfr?.speed.toString() + " м/с"
             Glide
-                .with(dot)
-                .load(R.drawable.dot)
-                .into(dot)
-          }
-        //@res/drawable/locat_dot.png
+                .with(image)
+                .load("http://openweathermap.org/img/w/${weatherfr?.icon}.png")
+                .into(image)
+
+            //@res/drawable/locat_dot.png
 
 
         }
 
+    }
 }
 
 

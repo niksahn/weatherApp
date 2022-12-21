@@ -79,12 +79,15 @@
                     android:textSize="@dimen/textMed_size"
                     tools:ignore="SpeakableTextPresentCheck" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/dot"
-                    android:layout_width="24dp"
-                    android:layout_height="34dp"
-                     tools:src="@drawable/locat_dot"
-                    android:background="?attr/colorPrimaryVariant"/>
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontawesome_webfont"
+                    android:text=""
+                    android:textColor="#BC1616"
+                    android:textSize="@dimen/textMed_size" />
 
 
         </FrameLayout>
