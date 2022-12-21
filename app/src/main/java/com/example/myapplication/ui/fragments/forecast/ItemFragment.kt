@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.fragments
+package com.example.myapplication.ui.fragments.forecast.recycle
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.data.models.placeholder.PlaceholderContent
-import com.example.myapplication.ui.fragments.recycle.MyItemRecyclerViewAdapter
-import com.example.myapplication.ui.fragments.recycle.putingInPlaceHolder
 import com.example.myapplication.ui.ViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,14 +49,22 @@ class ItemFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter =adapterr
+
             }
         }
+        adapterr.click=::onitemclick
         viewModel.forecast.observe(viewLifecycleOwner) {
             putingInPlaceHolder(it)
             adapterr.notifyDataSetChanged()}
 
 
     }
+  fun   onitemclick(i:Int,holder: MyItemRecyclerViewAdapter.ViewHolder){
+      viewModel.fragment.postValue(i)
+     // holder.itemView.background.colorFilter=
+
+
+  }
 
     companion object {
 

@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.fragments.recycle
+package com.example.myapplication.ui.fragments.forecast.recycle
 
 import com.example.myapplication.data.models.Model
 import com.example.myapplication.data.models.placeholder.PlaceholderContent
@@ -10,9 +10,11 @@ import kotlin.math.round
 
 fun putingInPlaceHolder(it: List<Model>){
     println(it)
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:s")
     PlaceholderContent.clear()
     var begin=1
     val begindate=it[0].dtTxt
+    PlaceholderContent.addItem(0, PlaceholderItemContent(it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].icon,(it[0].humidity), LocalDate.parse(it[0]?.dtTxt, formatter).dayOfWeek.toString().substring(0,3)))
     for( i in 1 until it.size-1)
     {
 
@@ -26,6 +28,7 @@ fun putingInPlaceHolder(it: List<Model>){
 
 
     }
+
     for( i in begin until (it.size-1) step 8){
 
         var minTemp=10000.0
@@ -47,10 +50,10 @@ fun putingInPlaceHolder(it: List<Model>){
 
         }
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:s")
+
         val date = LocalDate.parse(it[i]?.dtTxt, formatter).dayOfWeek
 
-        PlaceholderContent.addItem(i, PlaceholderItemContent(minTemp.minus(273.15) ?.let { round(it) }?.toInt(),maxTemp.minus(273.15) ?.let { round(it) }?.toInt(),icon,(avHumidity/8),date.toString()))
+        PlaceholderContent.addItem(i, PlaceholderItemContent(minTemp.minus(273.15) ?.let { round(it) }?.toInt(),maxTemp.minus(273.15) ?.let { round(it) }?.toInt(),icon,(avHumidity/8),date.toString().substring(0,3)))
 
     }
 }

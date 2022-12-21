@@ -8,6 +8,9 @@ import android.widget.Toast
 
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentContainerView
 import com.example.myapplication.R
 import com.example.myapplication.dimodule.askForLocationPermissions
 import com.example.myapplication.domain.repository.CityRepository
@@ -43,7 +46,11 @@ class MainActivity : AppCompatActivity() {
             var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
             toolbar.setBackgroundResource(draw)
         }}
-         // mainFrame=findViewById(R.id.mainframe)
+        var mainFrame:FragmentContainerView=findViewById(R.id.fragmentContainerView)
+        viewModel.fragment.observe(this){
+            println("ELEM "+it)
+        }
+
         //layoutInflater.inflate(R.layout.main_weather_now,mainFrame , false)
 
 

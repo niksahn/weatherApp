@@ -9,5 +9,5 @@
     android:layout_marginLeft="0dp"
     android:nestedScrollingEnabled="false"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.fragments.ItemFragment"
+    tools:context=".ui.fragments.forecast.recycle.ItemFragment"
     tools:listitem="@layout/fragment_item" />

@@ -27,7 +27,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.example.myapplication.Fragm.WeatherFr"
+                android:name="com.example.myapplication.ui.fragments.currentWeather.WeatherFr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
@@ -35,8 +35,8 @@
                 tools:layout="@layout/main_weather_now" />
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView3"
-                android:name="com.example.myapplication.ui.fragments.ItemFragment"
+                android:id="@+id/fragmentContainerView2"
+                android:name="com.example.myapplication.ui.fragments.forecast.recycle.ItemFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
