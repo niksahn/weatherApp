@@ -1,22 +1,6 @@
 package com.example.myapplication.data.models.modelForviewModel
 
-/*data class ModelCurrent (
 
-    var coord      : CoordCurrent?             = CoordCurrent(),
-    var weather    : ArrayList<WeatherCurrent> = arrayListOf(),
-    var base       : String?            = null,
-    var main       : MainCurrent?              = MainCurrent(),
-    var visibility : Int?               = null,
-    var wind       : WindCurrent?              = WindCurrent(),
-    var clouds     : CloudsCurrent?            = CloudsCurrent(),
-    var dt         : Int?               = null,
-    var sys        : SysCurrent?               = SysCurrent(),
-    var timezone   : Int?               = null,
-    var id         : Int?               = null,
-    var name       : String?            = null,
-    var cod        : Int?               = null
-
-)*/
 data class ModelCurrent(
     var id: Int?=0,
 

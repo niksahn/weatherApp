@@ -8,17 +8,22 @@ import android.widget.Toast
 
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
-import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.*
 import com.example.myapplication.R
 import com.example.myapplication.dimodule.askForLocationPermissions
 import com.example.myapplication.domain.repository.CityRepository
+import com.example.myapplication.ui.fragments.currentWeather.WeatherFr
+import com.example.myapplication.ui.fragments.forecast.recycle.ItemFragment
+import com.example.myapplication.ui.fragments.hourlyForecast.HourlyForecastFr
+import com.example.myapplication.ui.fragments.hourlyForecast.placeholder.Daycard
 import org.koin.androidx.viewmodel.ext.android.viewModel
 var permission=0
 class MainActivity : AppCompatActivity() {
      var icon:String?=null
-
+    var curWetherframe:Fragment=WeatherFr()
+    var forecastWeath:Fragment=ItemFragment()
+    var hourlyForecastWeath:Fragment=HourlyForecastFr()
+    var ft =  getSupportFragmentManager()
     private val viewModel: ViewModel by viewModel()
     private lateinit var toolbar:Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,16 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         toolbar=findViewById(R.id.toolbar)
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-            &&
-            ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            askForLocationPermissions(this@MainActivity)
-        }else{ permission=1}
+        checkPermission()
+        ft.beginTransaction().add(R.id.fragmentContainerView,curWetherframe)
+            .add(R.id.fragmentContainerView2,forecastWeath)
+            .commit()
         if (permission==1){
         viewModel.weather.observe(this) {
             icon = it.icon
@@ -45,13 +44,19 @@ class MainActivity : AppCompatActivity() {
             //icon="13"
             var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
             toolbar.setBackgroundResource(draw)
-        }}
-        var mainFrame:FragmentContainerView=findViewById(R.id.fragmentContainerView)
-        viewModel.fragment.observe(this){
-            println("ELEM "+it)
+        }
         }
 
-        //layoutInflater.inflate(R.layout.main_weather_now,mainFrame , false)
+
+        viewModel.fragment.observe(this){
+            println("ELEM "+it)
+            if (it==0){ ft.beginTransaction().replace(R.id.fragmentContainerView,curWetherframe)
+                .commit()}
+            else{
+                ft.beginTransaction().replace(R.id.fragmentContainerView,hourlyForecastWeath).commit()
+            }
+
+        }
 
 
     }
@@ -74,6 +79,8 @@ class MainActivity : AppCompatActivity() {
                             //icon="13"
                             var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
                             toolbar.setBackgroundResource(draw)
+
+
                         }
 
                     }
@@ -85,6 +92,17 @@ class MainActivity : AppCompatActivity() {
                 return
             }
         }
+    }
+    fun checkPermission(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            &&
+            ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            askForLocationPermissions(this@MainActivity)
+        }else{ permission=1}
     }
 
 }
