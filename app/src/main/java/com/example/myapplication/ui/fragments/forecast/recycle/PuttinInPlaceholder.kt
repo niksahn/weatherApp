@@ -16,7 +16,7 @@ fun putingInPlaceHolder(it: List<Model>){
     var begin=0
 
     val begindate=it[0].dtTxt
-    PlaceholderContent.addItem(0, PlaceholderItemContent(it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].icon,(it[0].humidity), LocalDate.parse(it[0]?.dtTxt, formatter).dayOfWeek.toString().substring(0,3)))
+    PlaceholderContent.addItem(0, PlaceholderItemContent(it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].icon,(it[0].humidity), "TODAY"))
     for( i in 1 until it.size-1)
     {
 

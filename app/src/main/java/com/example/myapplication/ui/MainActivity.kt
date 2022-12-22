@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         toolbar=findViewById(R.id.toolbar)
         checkPermission()
-        ft.beginTransaction().add(R.id.fragmentContainerView,curWetherframe)
-            .add(R.id.fragmentContainerView2,forecastWeath)
+        ft.beginTransaction().replace(R.id.fragmentContainerView,curWetherframe)
+            .replace(R.id.fragmentContainerView2,forecastWeath)
             .commit()
         if (permission==1){
         viewModel.weather.observe(this) {

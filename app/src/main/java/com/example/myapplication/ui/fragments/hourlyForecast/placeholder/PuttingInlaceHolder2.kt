@@ -51,5 +51,4 @@ object Daycard {
     var temp: String? = null
     var city: String? = null
     var date:String? = null
-
 }

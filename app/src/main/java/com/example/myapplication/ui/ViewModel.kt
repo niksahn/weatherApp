@@ -26,7 +26,7 @@ class ViewModel(private val interactor: Interactor)  : ViewModel(){
 
         println(t)
         //((t == null) || (Date().time - t > 600*100))|| permission==0
-      if (((t == null) || (Date().time - t > 600*100))|| permission==0){// впервые/ 10 минут прошли
+      if (((t == null) || (Date().time - t >300*1000))|| permission==0){// впервые/ 10 минут прошли
             viewModelScope.launch(Dispatchers.IO) {
                 supervisorScope {
                     while (permission==0){}
