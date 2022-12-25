@@ -9,12 +9,13 @@ class DbRepositoryImpl(private val db: AppDatabase) : DbRepository {
     override fun getCurWeather() = db.weatherDao.currentweatherGet()
 
     override suspend fun insertCurWeatherFromApi(Api: ModelApiCurrent) {
-        db.weatherDao.currentweatherInsert(Api.toModelCurrentEntity() )
+        db.weatherDao.currentweatherInsert(Api.toModelCurrentEntity())
     }
+
     override fun GetForecast() = db.weatherDao.forecastGet()
 
-    override suspend fun insertForecastFromApi(Apilist:  ModelApi) {
+    override suspend fun insertForecastFromApi(Apilist: ModelApi) {
         db.weatherDao.forecastDel()
-        db.weatherDao.forecastInsert(Apilist.list.map { it.toListEntity() } )
+        db.weatherDao.forecastInsert(Apilist.list.map { it.toListEntity() })
     }
 }

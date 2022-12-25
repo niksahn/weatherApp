@@ -39,32 +39,38 @@ class ItemFragment : Fragment() {
 
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val  adapterr = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+        val adapterr = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
+                    columnCount <= 1 -> LinearLayoutManager(
+                        context,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter =adapterr
+                adapter = adapterr
 
             }
         }
-        adapterr.click=::onitemclick
+        adapterr.click = ::onitemclick
         viewModel.forecast.observe(viewLifecycleOwner) {
-            putingInPlaceHolder(it)
-            adapterr.notifyDataSetChanged()}
+            putingInForecastPlaceHolder(it)
+            adapterr.notifyDataSetChanged()
+        }
 
 
     }
-  fun   onitemclick(i:Int,holder: MyItemRecyclerViewAdapter.ViewHolder){
-      viewModel.fragment.postValue(i)
-     // holder.itemView.background.colorFilter=
+
+    fun onitemclick(i: Int, holder: MyItemRecyclerViewAdapter.ViewHolder) {
+        viewModel.fragment.postValue(i)
 
 
-  }
+    }
 
     companion object {
 

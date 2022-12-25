@@ -7,8 +7,8 @@ import com.example.myapplication.data.models.roomEntity.ModelCurrentEntity
 import com.example.myapplication.data.models.roomEntity.ModelEntity
 
 interface DbRepository {
-     fun getCurWeather() :ModelCurrentEntity
+    fun getCurWeather(): ModelCurrentEntity
     suspend fun insertCurWeatherFromApi(Api: ModelApiCurrent)
-    fun GetForecast():List<ModelEntity>
+    fun GetForecast(): List<ModelEntity>
     suspend fun insertForecastFromApi(Apilist: ModelApi)
 }

@@ -2,7 +2,6 @@ package com.example.myapplication.domain.repository
 
 import android.location.Location
 import com.example.myapplication.data.api.ModelApi
-import com.example.myapplication.data.models.Model
 import com.example.myapplication.data.models.ModelApiCurrent
 
 interface ApiRepository {

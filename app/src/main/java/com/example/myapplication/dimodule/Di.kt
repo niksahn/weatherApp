@@ -1,18 +1,10 @@
 package com.example.myapplication.dimodule
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
-
-import androidx.core.content.ContextCompat
-
 import androidx.room.Room
-import org.koin.dsl.module
 import com.example.myapplication.Constants
 import com.example.myapplication.data.api.ApiCurrent
 import com.example.myapplication.data.api.ApiForecast
-
 import com.example.myapplication.data.api.repository.ApiRepositoryImpl
 import com.example.myapplication.data.repository.CityRepositoryImpl
 import com.example.myapplication.data.repository.DbRepositoryImpl
@@ -26,16 +18,15 @@ import com.example.myapplication.domain.repository.DbRepository
 import com.example.myapplication.domain.repository.SharedPreferencesRepository
 import com.example.myapplication.ui.MainActivity
 import com.example.myapplication.ui.ViewModel
-
 import com.google.android.gms.location.LocationServices
 import org.koin.android.ext.koin.androidContext
-
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
-    single<ApiRepository> { ApiRepositoryImpl(get(),get()) }
-    single<CityRepository> { CityRepositoryImpl(get(),androidContext()) }
+    single<ApiRepository> { ApiRepositoryImpl(get(), get()) }
+    single<CityRepository> { CityRepositoryImpl(get(), androidContext()) }
     single<SharedPreferencesRepository> { SharedPreferencesRepositoryImpl(get()) }
     single<DbRepository> { DbRepositoryImpl(get()) }
     single {
@@ -63,7 +54,7 @@ val dataModule = module {
             AppDatabase::class.java, "weather.db"
         ).build()
     }
-    single{
+    single {
 
         LocationServices.getFusedLocationProviderClient(androidContext())
 
@@ -72,14 +63,14 @@ val dataModule = module {
 
 }
 val domainModule = module {
-    factory<Interactor> { InteractorImpl(get(),get(),get(),get()) }
+    factory<Interactor> { InteractorImpl(get(), get(), get(), get()) }
 
 }
-val mainAct=module{
-    factory {MainActivity( )}
+val mainAct = module {
+    factory { MainActivity() }
 }
 val viewModelModule = module {
-    single  {
+    single {
         ViewModel(get())
     }
 }

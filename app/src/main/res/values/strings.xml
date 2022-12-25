@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="weather">Погода</string>
-    <string name="wind">Скорость ветра</string>
-    <string name="humidity"> Влажность</string>
-    <string name="pressure"> Давление</string>
+    <string name="weather">Weather</string>
+    <string name="wind">Wind speed</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
 
 </resources>

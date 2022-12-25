@@ -11,6 +11,7 @@ import com.example.myapplication.data.models.roomEntity.ModelEntity
 interface WeatherDao {
     @Query("SELECT * FROM currentweather")
     fun currentweatherGet(): ModelCurrentEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun currentweatherInsert(users: ModelCurrentEntity)
 

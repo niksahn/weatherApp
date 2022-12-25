@@ -17,25 +17,27 @@ class InteractorImpl(
 
 ) : Interactor {
     override fun getcity() {
-        ApiRepository.city=CityRepository.getCity()
+        ApiRepository.city = CityRepository.getCity()
 
     }
+
     override fun setTime(): Long? {
         var time: Long? = null
         val editor = SharedPreferencesRepository.timeEditor()
         if (!SharedPreferencesRepository.created()) {//запустили впервые
             editor.putString(Constants.APP_PREFERENCES_TIME, Date().time.toString())
             editor.apply()
-           return null
+            return null
         } else {//обновили время
             time = SharedPreferencesRepository.timeSetting()
             editor.putString(Constants.APP_PREFERENCES_TIME, Date().time.toString())
             editor.apply()
 
         }
-        return time}
+        return time
+    }
 
-     override suspend fun setApiRezults(): ModelCurrent? {
+    override suspend fun setApiRezults(): ModelCurrent? {
         val joblist = ApiRepository.getApiRezults()
 
         return joblist?.toModelCurrent()
@@ -43,11 +45,12 @@ class InteractorImpl(
 
     override suspend fun setApiForecastRezults(): List<Model>? {
         val joblist = ApiRepository.getApiForecastRezults()
-      //  println("API")
+        //  println("API")
         println(joblist)
         return joblist[0].list.map { it.toList() }
 
     }
+
     override suspend fun InsertCurrentWeather() {
         ApiRepository.getApiRezults()?.let { DbRepository.insertCurWeatherFromApi(it) }
     }
@@ -62,7 +65,7 @@ class InteractorImpl(
 
     override fun GetForecast(): List<Model> {
         //println("BBBBBBBBBDDDDDDDDDD")
-       // println(DbRepository.GetForecast().map { it.toList() })
+        // println(DbRepository.GetForecast().map { it.toList() })
         return DbRepository.GetForecast().map { it.toList() }
     }
 }

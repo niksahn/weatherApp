@@ -2,15 +2,15 @@ package com.example.myapplication.ui.fragments.currentWeather
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.myapplication.Constants
 import com.example.myapplication.R
-
 import com.example.myapplication.data.models.modelForviewModel.ModelCurrent
 import com.example.myapplication.ui.ViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -53,15 +53,13 @@ class WeatherFr : Fragment() {
             date.text = weatherfr?.description
             city.text = weatherfr?.name
             pressure.text = (weatherfr?.pressure?.times(0.750063755419211)
-                ?.let { it1 -> round(it1).toInt() }).toString() + " мм р.ст."
+                ?.let { it1 -> round(it1).toInt() }).toString() + Constants.units[1]
             humidity.text = weatherfr?.humidity.toString() + "%"
-            wind.text = weatherfr?.speed.toString() + " м/с"
+            wind.text = weatherfr?.speed.toString() + Constants.units[0]
             Glide
                 .with(image)
                 .load("http://openweathermap.org/img/w/${weatherfr?.icon}.png")
                 .into(image)
-
-            //@res/drawable/locat_dot.png
 
 
         }

@@ -2,27 +2,27 @@ package com.example.myapplication.data.models.modelForviewModel
 
 
 data class ModelCurrent(
-    var id: Int?=0,
+    var id: Int? = 0,
 
-    var base       : String?            = null,
+    var base: String? = null,
 
-    var visibility : Int?               = null,
+    var visibility: Int? = null,
 
-    var dt         : Int?               = null,
-    var timezone   : Int?               = null,
-    var name       : String?            = null,
-    var cod        : Int?               = null,
+    var dt: Int? = null,
+    var timezone: Int? = null,
+    var name: String? = null,
+    var cod: Int? = null,
 
 
-    var icon        : String? = null,
-    var description : String? = null,
+    var icon: String? = null,
+    var description: String? = null,
 
-    var temp      : Double? = null,
+    var temp: Double? = null,
 
-    var pressure  : Int?    = null,
-    var humidity  : Int?    = null,
+    var pressure: Int? = null,
+    var humidity: Int? = null,
 
-    var speed : Double? = null,
+    var speed: Double? = null,
 
     )
 

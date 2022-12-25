@@ -1,6 +1,9 @@
 package com.example.myapplication.data.api
+
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Query
+
 interface ApiForecast {
     @GET("data/2.5/forecast")
     fun getData(

@@ -6,56 +6,59 @@ import com.example.myapplication.data.models.placeholder.PlaceholderContent
 import com.example.myapplication.data.models.placeholder.PlaceholderItemContent
 import java.lang.Double
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import kotlin.let
 import kotlin.math.round
 
-fun putingInPlaceHolder(it: List<Model>){
+fun putingInForecastPlaceHolder(it: List<Model>) {
     println(it)
-
     PlaceholderContent.clear()
-    var begin=0
+    val begindate1 = it[0].dtTxt
+    PlaceholderContent.addItem(
+        0,
+        PlaceholderItemContent(
+            it[0].temp?.minus(273.15)?.let { round(it) }?.toInt(),
+            it[0].temp?.minus(273.15)?.let { round(it) }?.toInt(),
+            it[0].icon,
+            (it[0].humidity),
+            "CURRENT"
+        )
+    )
+    var i = 0
+    while (i < (it.size - 1)) {
+        var minTemp = 10000.0
+        var maxTemp = 0.0
+        var avHumidity = 0
+        val begindate = it[i].dtTxt
+        var icon = it[i].icon!!
+        var countHours = 1
 
-    val begindate=it[0].dtTxt
-    PlaceholderContent.addItem(0, PlaceholderItemContent(it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].temp?.minus(273.15) ?.let { round(it) }?.toInt(),it[0].icon,(it[0].humidity), "TODAY"))
-    for( i in 1 until it.size-1)
-    {
-
-        if(it[i]?.dtTxt?.substring(0,10)!=begindate?.substring(0,10))
-        {
-            break
-        }
-        else{
-            begin+=1}
-
-
-
-    }
-
-    for( i in begin until (it.size-1) step 8){
-
-        var minTemp=10000.0
-        var maxTemp=0.0
-        var avHumidity=0
-        var icon=it[i]?.icon!!
-        for (ii in i until Double.min(i + 7.0, (it.size - 1).toDouble()).toInt())
-        {
-            minTemp= Double.min(minTemp, it[ii]?.temp!!)
-            maxTemp= Double.max(maxTemp, it[ii]?.temp!!)
-
-            if(it[i]?.icon!!.substring(0,1)>icon.substring(0,1)){
-                icon=it[ii]?.icon!!.substring(0,1)+"d"
+        while (i < (it.size - 1)) {
+            minTemp = Double.min(minTemp, it[i].temp!!)
+            maxTemp = Double.max(maxTemp, it[i].temp!!)
+            if (it[i].icon!!.substring(0, 2) > icon.substring(0, 2)) {
+                icon = it[i].icon!!.substring(0, 2) + "d"
             }
-            avHumidity+=it[ii]?.humidity?:0
-
-
-
-
+            countHours += 1
+            i += 1
+            avHumidity += it[i].humidity ?: 0
+            if (it[i].dtTxt?.substring(0, 11) != begindate?.substring(0, 11)) {
+                break
+            }
         }
 
-
-        val date = LocalDate.parse(it[i+1]?.dtTxt, formatter).dayOfWeek
-
-        PlaceholderContent.addItem(i, PlaceholderItemContent(minTemp.minus(273.15) ?.let { round(it) }?.toInt(),maxTemp.minus(273.15) ?.let { round(it) }?.toInt(),icon,(avHumidity/8),date.toString().substring(0,3) ))
+        println(PlaceholderContent.ITEMS)
+        var date = LocalDate.parse(it[i - 1].dtTxt, formatter).dayOfWeek.toString().substring(0, 3)
+        if (begindate1?.substring(0, 11) == begindate?.substring(0, 11)) date = "TODAY"
+        PlaceholderContent.addItem(
+            i,
+            PlaceholderItemContent(
+                minTemp.minus(273.15).let { round(it) }?.toInt(),
+                maxTemp.minus(273.15).let { round(it) }?.toInt(),
+                icon,
+                (avHumidity / (countHours - 1)),
+                date
+            )
+        )
 
     }
 }
