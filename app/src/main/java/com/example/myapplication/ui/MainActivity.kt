@@ -30,15 +30,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.toolbar)
         checkPermission()
-
+        viewModel.forecast.observe(this) {
+            if (it != null) {
+                ft.beginTransaction().replace(R.id.fragmentContainerView, curWetherframe)
+                    .replace(R.id.fragmentContainerView2, forecastWeath)
+                    .commit()
+            }}
         if (permission == 1) {
             viewModel.weather.observe(this) {
-                if (it != null) {
-                    ft.beginTransaction().replace(R.id.fragmentContainerView, curWetherframe)
-                        .replace(R.id.fragmentContainerView2, forecastWeath)
-                        .commit()
-                }
-
                 icon = it.icon
                 println(icon)
                 icon = icon?.substring(0, 2)
