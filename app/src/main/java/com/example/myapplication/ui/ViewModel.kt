@@ -24,28 +24,23 @@ class ViewModel(private val interactor: Interactor) : ViewModel() {
 
         time = interactor.setTime()
         val t = time
+        viewModelScope.launch(Dispatchers.IO) {
+            supervisorScope {
+                if (((t == null) || (Date().time - t > 300 * 1000))) {// впервые/ 5 минут прошли
 
-        if (((t == null) || (Date().time - t > 300 * 1000)) || permission == 0) {// впервые/ 5 минут прошли
-            viewModelScope.launch(Dispatchers.IO) {
-                supervisorScope {
                     while (permission == 0) {
                     }
-                    interactor.getcity()
-                    weather.postValue(interactor.setApiRezults())
-                    interactor.InsertCurrentWeather()
-                    forecast.postValue(interactor.setApiForecastRezults())
-                    interactor.InsertForecast()
+                    try {
+                        interactor.getcity()
+                        interactor.InsertCurrentWeather()
+                        interactor.InsertForecast()
+                    } catch (e: java.lang.Exception) {
+                    }
                 }
-            }
-        } else {
-            viewModelScope.launch(Dispatchers.IO) {
-                supervisorScope {
-                    forecast.postValue(interactor.GetForecast())
-                    weather.postValue(interactor.GetCurrentWeather())
-                }
+                forecast.postValue(interactor.GetForecast())
+                weather.postValue(interactor.GetCurrentWeather())
             }
         }
-
     }
 }
 

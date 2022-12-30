@@ -38,12 +38,7 @@ fun askForLocationPermissions(cont: Activity) {
             cont, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             LOCATION_PERMISSION_REQUEST_CODE
         )
-        println(LOCATION_PERMISSION_REQUEST_CODE.toString() + " REQUESTCODE")
 
-
-        // MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION is an
-        // app-defined int constant. The callback method gets the
-        // result of the request.
     }
 }
 

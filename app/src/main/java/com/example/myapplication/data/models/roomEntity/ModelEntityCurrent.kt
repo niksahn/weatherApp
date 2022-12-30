@@ -7,15 +7,10 @@ import com.example.myapplication.data.models.modelForviewModel.ModelCurrent
 @Entity(tableName = "CurrentWeather")
 data class ModelCurrentEntity(
     @PrimaryKey var id: Int = 0,
-//var coord      : CoordApiCurrent?             = CoordApiCurrent(),
-    //var weather    : ArrayList<WeatherApiCurrent> = arrayListOf(),
     var base: String? = null,
-    //var main       : MainApiCurrent?              = MainApiCurrent(),
     var visibility: Int? = null,
-    //var wind       : WindApiCurrent?              = WindApiCurrent(),
-    //var clouds     : CloudsApiCurrent?            = CloudsApiCurrent(),
+
     var dt: Int? = null,
-    //var sys        : SysApiCurrent?               = SysApiCurrent(),
     var timezone: Int? = null,
     var name: String? = null,
     var cod: Int? = null,

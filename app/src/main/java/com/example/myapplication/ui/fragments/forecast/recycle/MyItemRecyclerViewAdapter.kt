@@ -9,10 +9,6 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.data.models.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.myapplication.databinding.FragmentItemBinding
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class MyItemRecyclerViewAdapter(
     private val values: List<PlaceholderItem>
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
@@ -31,14 +27,23 @@ class MyItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.dateView.text = item.content.date
-        holder.tempView.text =
+        if  (item.content.maxTemp!=null){
+            holder.dateView.text = item.content.date
+            holder.tempView.text =
             item.content.maxTemp.toString() + "\u00B0" + "/" + (item.content.minTemp).toString() + "\u00B0"
-        Glide
-            .with(holder.iconc)
-            .load("http://openweathermap.org/img/w/${item.content.icon}.png")
-            .into(holder.iconc)
-        holder.humidityView.text = item.content.humidity.toString() + "%"
+            Glide
+                .with(holder.iconc)
+                .load("http://openweathermap.org/img/w/${item.content.icon}.png")
+                .into(holder.iconc)
+            holder.humidityView.text = item.content.humidity.toString() + "%"
+
+        }
+        else{
+            holder.tempView.text="CURRENT"
+            holder.waterdropimage.text=""
+        }
+
+
         holder.itemView.setOnClickListener { click?.let { it1 -> it1(position, holder) } }
 
     }
@@ -50,8 +55,7 @@ class MyItemRecyclerViewAdapter(
         val dateView: TextView = binding.date
         val humidityView: TextView = binding.humidity
         val iconc: ImageView = binding.imageView
-
-
+        val waterdropimage: TextView = binding.textView5
     }
 
 }

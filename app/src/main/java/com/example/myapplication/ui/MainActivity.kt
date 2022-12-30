@@ -30,23 +30,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.toolbar)
         checkPermission()
-        viewModel.forecast.observe(this) {
+
+        viewModel.weather.observe(this) {
             if (it != null) {
                 ft.beginTransaction().replace(R.id.fragmentContainerView, curWetherframe)
                     .replace(R.id.fragmentContainerView2, forecastWeath)
                     .commit()
-            }}
-        if (permission == 1) {
-            viewModel.weather.observe(this) {
-                icon = it.icon
-                println(icon)
-                icon = icon?.substring(0, 2)
-                println(icon)
-                //icon="13"
-                var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
-                toolbar.setBackgroundResource(draw)
             }
+
+            icon = it.icon
+            icon = icon?.substring(0, 2)
+            var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
+            toolbar.setBackgroundResource(draw)
         }
+
         viewModel.fragment.observe(this) {
             println("ELEM " + it)
             if (it == 0) {

@@ -62,14 +62,10 @@ class ItemFragment : Fragment() {
             putingInForecastPlaceHolder(it)
             adapterr.notifyDataSetChanged()
         }
-
-
     }
 
     fun onitemclick(i: Int, holder: MyItemRecyclerViewAdapter.ViewHolder) {
         viewModel.fragment.postValue(i)
-
-
     }
 
     companion object {

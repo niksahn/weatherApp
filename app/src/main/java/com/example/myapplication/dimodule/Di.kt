@@ -66,9 +66,6 @@ val domainModule = module {
     factory<Interactor> { InteractorImpl(get(), get(), get(), get()) }
 
 }
-val mainAct = module {
-    factory { MainActivity() }
-}
 val viewModelModule = module {
     single {
         ViewModel(get())

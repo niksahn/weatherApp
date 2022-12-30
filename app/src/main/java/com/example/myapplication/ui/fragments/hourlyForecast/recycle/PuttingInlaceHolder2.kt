@@ -72,7 +72,7 @@ fun putingInHourlyForecastPlaceHolder(it: List<Model>, numder: Int) {
         ).month.toString().lowercase(Locale.getDefault())
         i += 1
     }
-    Daycard.temp = minTemp.minus(273.15).let { round(it) }?.toInt().toString() + "\u00B0"
+    Daycard.temp = minTemp.minus(273.15).let { round(it) }.toInt().toString() + "\u00B0"
 
 
 }

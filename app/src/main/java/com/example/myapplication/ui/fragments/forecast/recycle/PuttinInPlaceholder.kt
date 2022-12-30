@@ -10,18 +10,16 @@ import kotlin.let
 import kotlin.math.round
 
 fun putingInForecastPlaceHolder(it: List<Model>) {
-    println(it)
     PlaceholderContent.clear()
     val begindate1 = it[0].dtTxt
     PlaceholderContent.addItem(
         0,
         PlaceholderItemContent(
-            it[0].temp?.minus(273.15)?.let { round(it) }?.toInt(),
-            it[0].temp?.minus(273.15)?.let { round(it) }?.toInt(),
+            null,
+            null,
             it[0].icon,
             (it[0].humidity),
-            "CURRENT"
-        )
+            null        )
     )
     var i = 0
     while (i < (it.size - 1)) {
@@ -46,14 +44,13 @@ fun putingInForecastPlaceHolder(it: List<Model>) {
             }
         }
 
-        println(PlaceholderContent.ITEMS)
         var date = LocalDate.parse(it[i - 1].dtTxt, formatter).dayOfWeek.toString().substring(0, 3)
         if (begindate1?.substring(0, 11) == begindate?.substring(0, 11)) date = "TODAY"
         PlaceholderContent.addItem(
             i,
             PlaceholderItemContent(
-                minTemp.minus(273.15).let { round(it) }?.toInt(),
-                maxTemp.minus(273.15).let { round(it) }?.toInt(),
+                minTemp.minus(273.15).let { round(it) }.toInt(),
+                maxTemp.minus(273.15).let { round(it) }.toInt(),
                 icon,
                 (avHumidity / (countHours - 1)),
                 date
