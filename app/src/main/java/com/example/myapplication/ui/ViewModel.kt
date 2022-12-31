@@ -18,25 +18,21 @@ class ViewModel(private val interactor: Interactor) : ViewModel() {
     var forecast: MutableLiveData<List<Model>> = MutableLiveData()
     var fragment: MutableLiveData<Int> = MutableLiveData()
 
-    private var time: Long? = null
+     var time:MutableLiveData<Long?> = MutableLiveData()
 
     init {
 
-        time = interactor.setTime()
-        val t = time
+        time.postValue(interactor.getTime())
+        while (permission == 0) {}
         viewModelScope.launch(Dispatchers.IO) {
             supervisorScope {
-                if (((t == null) || (Date().time - t > 300 * 1000))) {// впервые/ 5 минут прошли
-
-                    while (permission == 0) {
-                    }
                     try {
                         interactor.getcity()
                         interactor.InsertCurrentWeather()
                         interactor.InsertForecast()
-                    } catch (e: java.lang.Exception) {
-                    }
-                }
+                        time.postValue(Date().time)
+                        interactor.setTime()
+                    } catch (e: java.lang.Exception) {}
                 forecast.postValue(interactor.GetForecast())
                 weather.postValue(interactor.GetCurrentWeather())
             }

@@ -47,6 +47,7 @@ class ApiRepositoryImpl(private val apiCurrent: ApiCurrent, private val apiForec
         var q = listOf<ModelApi>()
         val jobList = mutableListOf<Deferred<ModelApi>>()
         withContext(Dispatchers.IO) {
+
             jobList.add(async {
                 apiForecast.getData(
                     ((city?.latitude?.times(100))?.roundToInt()?.div(100.0)).toString(),

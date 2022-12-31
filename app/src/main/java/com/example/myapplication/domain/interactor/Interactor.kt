@@ -10,6 +10,7 @@ interface Interactor {
     suspend fun InsertCurrentWeather()
     fun GetCurrentWeather(): ModelCurrent
     fun setTime(): Long?
+    fun getTime():Long?
     suspend fun InsertForecast()
     fun GetForecast(): List<Model>
 

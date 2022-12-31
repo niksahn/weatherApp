@@ -24,19 +24,15 @@ class InteractorImpl(
     override fun setTime(): Long? {
         var time: Long? = null
         val editor = SharedPreferencesRepository.timeEditor()
-        if (!SharedPreferencesRepository.created()) {//запустили впервые
-            editor.putString(Constants.APP_PREFERENCES_TIME, Date().time.toString())
-            editor.apply()
-            return null
-        } else {//обновили время
-            time = SharedPreferencesRepository.timeSetting()
-            editor.putString(Constants.APP_PREFERENCES_TIME, Date().time.toString())
-            editor.apply()
-
-        }
-        return time
+        editor.putString(Constants.APP_PREFERENCES_TIME, Date().time.toString())
+        editor.apply()
+        return null
     }
-
+    override fun getTime():Long?{
+        if (SharedPreferencesRepository.created()) {
+       return SharedPreferencesRepository.timeSetting()}
+        else return null
+    }
     override suspend fun setApiRezults(): ModelCurrent? {
         val joblist = ApiRepository.getApiRezults()
 

@@ -7,6 +7,7 @@
     tools:context=".ui.MainActivity">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="false"
@@ -42,6 +43,14 @@
                 android:layout_margin="@dimen/text_margin"
                 android:background="@drawable/round" />
 
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_margin="@dimen/text_margin"
+                android:textSize="@dimen/textMed_size"/>
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -67,9 +76,6 @@
             android:textSize="@dimen/textBig_size"
             tools:layout_editor_absoluteX="16dp" />
     </androidx.appcompat.widget.Toolbar>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

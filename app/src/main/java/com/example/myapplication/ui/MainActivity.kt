@@ -3,22 +3,26 @@ package com.example.myapplication.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.myapplication.Constants.language
 import com.example.myapplication.R
 import com.example.myapplication.dimodule.askForLocationPermissions
 import com.example.myapplication.ui.fragments.currentWeather.WeatherFr
 import com.example.myapplication.ui.fragments.forecast.recycle.ItemFragment
 import com.example.myapplication.ui.fragments.hourlyForecast.HourlyForecastFr
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 var permission = 0
 
 class MainActivity : AppCompatActivity() {
     var icon: String? = null
+    lateinit var updatedate:TextView
     var curWetherframe: Fragment = WeatherFr()
     var forecastWeath: Fragment = ItemFragment()
     var hourlyForecastWeath: Fragment = HourlyForecastFr()
@@ -28,22 +32,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        updatedate=findViewById(R.id.date)
         toolbar = findViewById(R.id.toolbar)
         checkPermission()
-
-        viewModel.weather.observe(this) {
-            if (it != null) {
-                ft.beginTransaction().replace(R.id.fragmentContainerView, curWetherframe)
-                    .replace(R.id.fragmentContainerView2, forecastWeath)
-                    .commit()
-            }
-
-            icon = it.icon
-            icon = icon?.substring(0, 2)
-            var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
-            toolbar.setBackgroundResource(draw)
-        }
-
+        curweather()
         viewModel.fragment.observe(this) {
             println("ELEM " + it)
             if (it == 0) {
@@ -54,8 +46,18 @@ class MainActivity : AppCompatActivity() {
                     .commit()
             }
         }
-    }
+        viewModel.time.observe(this){
+            var now= it?.let { it1 -> Date(it1) }
+            val locale = Locale(language)
+            Locale.setDefault(locale)
+            updatedate.text=  // длинная строка
+                    String.format(locale, " %tD ", now) + //(MM/DD/YY)
 
+                    String.format(locale, "%tr\n", now)  //Full 12-hour time
+                      //Localized time zone abbreviation
+        }
+
+    }
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -75,24 +77,7 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
                         permission = 1
-                        viewModel.weather.observe(this) {
-                            if (it != null) {
-                                ft.beginTransaction()
-                                    .replace(R.id.fragmentContainerView, curWetherframe)
-                                    .replace(R.id.fragmentContainerView2, forecastWeath)
-                                    .commit()
-                            }
-                            icon = it.icon
-
-                            icon = icon?.substring(0, 2)
-
-                            //icon="13"
-                            var draw =
-                                this.resources.getIdentifier("d$icon", "drawable", this.packageName)
-                            toolbar.setBackgroundResource(draw)
-
-
-                        }
+                        curweather()
 
                     }
                 } else {
@@ -123,5 +108,17 @@ class MainActivity : AppCompatActivity() {
             permission = 1
         }
     }
+    fun curweather(){ viewModel.weather.observe(this) {
+        if (it != null) {
+            ft.beginTransaction().replace(R.id.fragmentContainerView, curWetherframe)
+                .replace(R.id.fragmentContainerView2, forecastWeath)
+                .commit()
+        }
+
+        icon = it.icon
+        icon = icon?.substring(0, 2)
+        var draw = this.resources.getIdentifier("d$icon", "drawable", this.packageName)
+        toolbar.setBackgroundResource(draw)
+    }}
 
 }
